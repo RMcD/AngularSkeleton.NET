@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Web.Http;
 using Swashbuckle.Application;
 
-namespace AngularSkeleton.WebApplication.Infrastructure.Config
+namespace AngularSkeleton.Web.Application.Infrastructure.Config
 {
     /// <summary>
     ///     Configures swashbuckle (swagger) settings.
@@ -29,11 +29,11 @@ namespace AngularSkeleton.WebApplication.Infrastructure.Config
                         .TermsOfService("Some terms")
                         .Contact(cc => cc
                             .Name("Your name")
-                            .Url("http://www.yourdomain.com/contact")
-                            .Email("info@yourdomain.com"))
+                            .Url("http://www.angularskeleton.com/contact")
+                            .Email("info@angularskeleton.com"))
                         .License(lc => lc
                             .Name("License")
-                            .Url("http://www.yourdomain.com/license"));
+                            .Url("http://www.angularskeleton.com/license"));
 
                     c.IncludeXmlComments(commentsFile);
 
@@ -41,7 +41,7 @@ namespace AngularSkeleton.WebApplication.Infrastructure.Config
                         .OAuth2("oauth2")
                         .Description("Resource owner password credentials grant")
                         .Flow("password")
-                        .AuthorizationUrl("http://localhost:32576/api/rest/v1/accesstoken");
+                        .AuthorizationUrl("http://localhost:54391/api/rest/v1/accesstoken");
                 })
                 .EnableSwaggerUi("api/rest/docs/{*assetPath}");
         }

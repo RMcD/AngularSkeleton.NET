@@ -1,0 +1,74 @@
+﻿
+<!-- start: sidebar-controller -->
+
+<div id="main-menu">
+	<div id="main-menu-inner">
+		<!-- MENU TOP -->
+		<div class="menu-content top text-center" style="white-space: nowrap;">
+			<div class="text-bg form-group-margin" style="color: #fff">
+				<span class="text-slim">Welcome,</span> <span class="text-semibold">Christopher</span>
+			</div>
+			<div class="form-group-margin">
+				<img src="/client/content/images/pixel-admin/avatar.png" alt="" class="rounded" style="width: 80px; height: 80px;">
+			</div>
+			<a href="#" class="btn btn-xs btn-primary btn-outline dark">Profile</a>&nbsp;
+			<a ui-sref="app.logoff" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i> Log Out</a>
+		</div>
+		<!-- MENU -->
+		<ul class="navigation">
+			<li ui-sref-active="active"> <a ui-sref="app.home.welcome"><i class="menu-icon fa fa-user"></i><span class="mm-text">Welcome</span></a> </li>
+			<li ui-sref-active="active"> <a ui-sref="app.home.dashboard"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Dashboard</span></a> </li>
+			<li class="mm-dropdown mm-dropdown-root" ui-sref-active="open">
+				<a ui-sref="app.timesheets"><i class="menu-icon fa fa-calendar"></i><span class="mm-text">Timesheets</span></a>
+				<ul>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.timesheets.time"><span class="mm-text">Time</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.timesheets.expenses"><span class="mm-text">Expenses</span></a> </li>
+				</ul>
+			</li>
+			<li class="mm-dropdown mm-dropdown-root" ui-sref-active="open">
+				<a ui-sref="app.invoices"><i class="menu-icon fa fa-credit-card"></i><span class="mm-text">Invoices</span></a>
+				<ul>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.invoices.overview"><span class="mm-text">Overview</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.invoices.reports"><span class="mm-text">Reports</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.invoices.recurring"><span class="mm-text">Recurring</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.invoices.retainers"><span class="mm-text">Retainers</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.invoices.configure"><span class="mm-text">Configure</span></a> </li>
+				</ul>
+			</li>
+			<li class="mm-dropdown mm-dropdown-root" ui-sref-active="open">
+				<a ui-sref="app.estimates"><i class="menu-icon fa fa-road"></i><span class="mm-text">Estimates</span></a>
+				<ul>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.estimates.overview"><span class="mm-text">Overview</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.estimates.reports"><span class="mm-text">Reports</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.estimates.configure"><span class="mm-text">Configure</span></a> </li>
+				</ul>
+			</li>
+			<li class="mm-dropdown mm-dropdown-root" ui-sref-active="open">
+				<a ui-sref="app.reports"><i class="menu-icon fa fa-book"></i><span class="mm-text">Reports</span></a>
+				<ul>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.reports.time"><span class="mm-text">Time</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.reports.detailed-time"><span class="mm-text">Detailed Time</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.reports.uninvoiced"><span class="mm-text">Uninvoiced</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.reports.budget"><span class="mm-text">Budget</span></a> </li>
+					<li ui-sref-active="active"> <a tabindex="-1" ui-sref="app.reports.expense"><span class="mm-text">Expense</span></a> </li>
+				</ul>
+			</li>
+			<li class="mm-dropdown mm-dropdown-root" ui-sref-active="open">
+				<a href="" ui-sref="app.manage"><i class="menu-icon fa fa-cogs"></i><span class="mm-text">Manage</span></a>
+				<ul>
+					<li ui-sref-active="active"> <a href="" tabindex="-1" ui-sref="app.manage.projects"><span class="mm-text">Projects</span></a> </li>
+					<li ui-sref-active="active"> <a href="" tabindex="-1" ui-sref="app.manage.clients"><span class="mm-text">Clients</span></a> </li>
+					<li ui-sref-active="active"> <a href="" tabindex="-1" ui-sref="app.manage.people"><span class="mm-text">People</span></a> </li>
+					<li ui-sref-active="active"> <a href="" tabindex="-1" ui-sref="app.manage.tasks"><span class="mm-text">Tasks</span></a> </li>
+					<li ui-sref-active="active"> <a href="" tabindex="-1" ui-sref="app.manage.expense-categories"><span class="mm-text">Expenses</span></a> </li>
+				</ul>
+			</li>
+		</ul>
+		<!-- HELP LINK -->
+		<div class="menu-content animated fadeIn">
+			<a ui-sref="app.help" class="btn btn-primary btn-block btn-outline dark">Help</a>
+		</div>
+	</div>
+</div>
+
+<!-- end: sidebar-controller -->
