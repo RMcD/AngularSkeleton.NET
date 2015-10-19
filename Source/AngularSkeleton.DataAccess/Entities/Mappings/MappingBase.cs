@@ -32,7 +32,10 @@ namespace AngularSkeleton.DataAccess.Entities.Mappings
         /// <summary>
         ///     Defines the schema for the database table.
         /// </summary>
-        public virtual string Schema => Tables.Schema;
+        public virtual string Schema
+        {
+            get { return Tables.Schema; }
+        }
 
         /// <summary>
         ///     Defines the name for the database table.

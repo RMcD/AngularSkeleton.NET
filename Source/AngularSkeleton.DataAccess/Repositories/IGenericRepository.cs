@@ -23,13 +23,13 @@ namespace AngularSkeleton.DataAccess.Repositories
     public interface IGenericRepository<TEntity> where TEntity : EntityBase
     {
         /// <summary>
-        ///     Returns true if any entities exisit that meet the condition.
+        ///     Returns true if any entities exist that meet the condition.
         /// </summary>
         /// <param name="predicate">The condition</param>
         bool Any(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
-        ///     Returns true if any entities exisit that meet the condition.
+        ///     Returns true if any entities exist that meet the condition.
         /// </summary>
         /// <param name="predicate">The condition</param>
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
