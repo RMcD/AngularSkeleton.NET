@@ -53,7 +53,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [Route("products/{id:long}", Name = RetrieveProductRoute)]
         [AcceptVerbs("GET")]
         [ResponseType(typeof (ProductModel))]
-        public async Task<HttpResponseMessage> Get(long id)
+        public async Task<HttpResponseMessage> GetSingleAsync(long id)
         {
             var product = await Services.CatalogManagement.GetProductAsync(id);
             return Request.CreateResponse(product);

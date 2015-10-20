@@ -33,9 +33,13 @@ m.controller('app.layout.navbar', ['$scope', '$state', 'security', 'services', (
     services.logger.debug('Loading app.layout.navbar controller')
 
     $scope.$state = $state
-
+    
     security.principal.identity().then(data => {
         if(data) $scope.username = data.name
+    })
+
+    services.profile.me().then(data => {
+        $scope.avataruri = data.avatar
     })
 
     $scope.toggleSidebar = () => {
@@ -58,6 +62,11 @@ m.controller('app.layout.sidebar', ['$scope', '$state', 'security', 'services', 
     services.logger.debug('Loading app.layout.sidebar controller')
 
     $scope.$state = $state
+
+    services.profile.me().then(data => {
+        $scope.avataruri = data.avatar
+        $scope.firstname = data.nameFirst
+    })
 
     services.logger.debug(`Current state is: ${$scope.$state.name}`)
 }])

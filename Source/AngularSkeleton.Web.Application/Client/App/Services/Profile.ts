@@ -34,15 +34,15 @@ m.factory('profile', ['repositories', '$q', (repositories: IRepositories, $q) =>
     var user : IUser = null
 
     function me(): angular.IPromise<IUser> {
-        const deferred = $q.defer();
-        
-        if (!angular.isDefined(user)) {
+        const deferred = $q.defer()
+        if (user == null) {
             repositories.users.me().then((data) => {
                 user = data
+                deferred.resolve(data)
             })
+        } else {
+            deferred.resolve(user)
         }
-
-        deferred.resolve(user)
         return deferred.promise
     }
 

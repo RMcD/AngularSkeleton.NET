@@ -44,7 +44,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [Route("users/me")]
         [AcceptVerbs("GET")]
         [ResponseType(typeof(UserModel))]
-        public async Task<HttpResponseMessage> Get()
+        public async Task<HttpResponseMessage> MeAsync()
         {
             var user = await Services.AccountManagement.GetCurrentUserAsync();
             return Request.CreateResponse(HttpStatusCode.OK, user);

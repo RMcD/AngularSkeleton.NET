@@ -13,25 +13,43 @@
 // Module app.catalog
 //
  
-var m = angular.module('app.catalog', [
-    'app.catalog.search'
-])
+var m = angular.module('app.catalog', [])
 
 
 // ****************************************************************************
 // Configure app.catalog
 //
 
-m.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) => {
-
-    $urlRouterProvider.when('/catalog', '/catalog/search');
-
+m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider, settings: ISystemSettings) => {
+    
     $stateProvider
         .state('app.catalog', {
-            abstract: false,
             url: '/catalog',
             data: {
                 roles: ['user']
+            },
+            controller: 'app.catalog',
+            views: {
+                'content@': {
+                    templateUrl: `${settings.moduleBaseUri}/catalog/catalog.tpl.html`,
+                    controller: 'app.catalog'
+                }
             }
         })
 }])
+
+
+// ****************************************************************************
+// Controller app.catalog
+//
+
+interface ICatalogScope {
+}
+
+m.controller('app.catalog', ['$scope', 'repositories', 'services',
+    ($scope: ICatalogScope, repositories: IRepositories, services: IServices) => {
+
+        services.logger.debug('Loaded controller app.catalog')
+        
+    }
+]) 
