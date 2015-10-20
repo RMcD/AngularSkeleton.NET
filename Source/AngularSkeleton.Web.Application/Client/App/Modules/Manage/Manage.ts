@@ -10,46 +10,30 @@
 
 
 // ****************************************************************************
-// Module app.services.profile
+// Module app.manage
 //
 
-var m = angular.module('app.services.profile', ['app.repositories'])
-
+var m = angular.module('app.manage', [
+    'app.manage.products',
+    'app.manage.users'
+])
 
 // ****************************************************************************
-// Interface IProfileService
+// Module app.manage configuration
 //
 
-interface IProfileService {
-    me(): angular.IPromise<IUser>
-}
+m.config(['$urlRouterProvider', '$stateProvider',
+    ($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) => {
 
+        $urlRouterProvider.when('/manage', '/manage/products')
 
-// ****************************************************************************
-// Service
-//
-
-m.factory('profile', ['repositories', '$q', (repositories: IRepositories, $q) => {
-
-    var user : IUser = null
-
-    function me(): angular.IPromise<IUser> {
-        const deferred = $q.defer()
-        if (user == null) {
-            repositories.users.me().then((data) => {
-                user = data
-                deferred.resolve(user)
+        $stateProvider
+            .state('app.manage', {
+                abstract: false,
+                url: '/manage',
+                data: {
+                    roles: ['user']
+                }
             })
-        } else {
-            deferred.resolve(user)
-        }
-        return deferred.promise
     }
-
-    var profile: IProfileService = {
-        me: me
-    }
-
-    return profile
-
-}])
+])

@@ -278,6 +278,8 @@
     <TypeScriptCompile Include="Client\App\Modules\Home\Home.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Layout\Layout.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Login\Login.ts" />
+    <TypeScriptCompile Include="Client\App\Modules\Manage\Manage.ts" />
+    <TypeScriptCompile Include="Client\App\Modules\Manage\Users\Users.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Authentication.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Products.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Repositories.ts" />
@@ -317,6 +319,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Client\App\Modules\Manage\Products\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
