@@ -33,6 +33,7 @@ $LAB
     .script('//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js')
     .script('//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js')
     .script('//cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.js')
+    .script('//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.3/angular-moment.min.js')
     .script('//cdnjs.cloudflare.com/ajax/libs/angulartics/0.20.0/angulartics.min.js')
     .script('//cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js').wait()
     .script('//cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js').wait()

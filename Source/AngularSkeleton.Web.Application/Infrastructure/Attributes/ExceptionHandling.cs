@@ -57,7 +57,7 @@ namespace AngularSkeleton.Web.Application.Infrastructure.Attributes
                     ReasonPhrase = "BadRequest"
                 });
 
-            //_logger.Debug(context.Exception);
+            _logger.Debug(context.Exception);
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {

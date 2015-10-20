@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using AngularSkeleton.Common;
 using AngularSkeleton.Common.Exceptions;
 using AngularSkeleton.DataAccess.Repositories;
+using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Domain.Accounts;
 using AngularSkeleton.Domain.Security;
 using AngularSkeleton.Service.Model.Users;
@@ -40,7 +41,10 @@ namespace AngularSkeleton.Service.Impl
             if (null == user)
                 return null;
 
-            return user.VerifyPassword(password) ? user : null;
+            var valid = user.VerifyPassword(password);
+            await _repositories.SaveChangesAsync(); // update audit data
+
+            return valid ? user : null;
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
@@ -75,9 +79,10 @@ namespace AngularSkeleton.Service.Impl
             return await _repositories.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<UserModel>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            var found = await _repositories.Users.GetAllAsync(QueryOptions.AllItems);
+            return Mapper.Map<IEnumerable<UserModel>>(found.Items);
         }
 
         public async Task<UserModel> GetCurrentUserAsync()

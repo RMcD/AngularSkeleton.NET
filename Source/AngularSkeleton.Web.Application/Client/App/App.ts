@@ -26,6 +26,7 @@ var m = angular.module('app', [
     'app.home',
     'app.catalog',
     'app.manage',
+    'angularMoment',
     'angular-ladda',
     'ngAnimate',
     'ngProgress',
