@@ -8,24 +8,9 @@
 // THE SOFTWARE.
 //=============================================================================
 
-using System;
 
-namespace AngularSkeleton.Common.Exceptions
-{
-    /// <summary>
-    ///     Exception used when the requested business object cannot be found.
-    /// </summary>
-    /// <remarks>
-    ///     Handled upstream in API application to return 404 (NotFound) responses.
-    /// </remarks>
-    public class NotFoundException : Exception
-    {
-        public NotFoundException(string message) : base(message)
-        {
-        }
+// ****************************************************************************
+// Module app.manage.products
+//
 
-        public NotFoundException(string message, params object[] args) : base(string.Format(message, args))
-        {
-        }
-    }
-}
+var m = angular.module('app.manage.products', [])

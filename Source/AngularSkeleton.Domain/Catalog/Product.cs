@@ -27,17 +27,23 @@ namespace AngularSkeleton.Domain.Catalog
 
         protected Product()
         {
+            Active = true;
         }
 
         /// <summary>
-        ///     The product name
+        ///     Indicates if the product is active
         /// </summary>
-        public string Name { get; set; }
+        public bool Active { get; set; }
 
         /// <summary>
         ///     The product description
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        ///     The product name
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         ///     The product quantity available

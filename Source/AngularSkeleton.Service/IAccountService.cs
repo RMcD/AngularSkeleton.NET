@@ -8,9 +8,10 @@
 // THE SOFTWARE.
 //=============================================================================
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AngularSkeleton.Domain.Accounts;
-using AngularSkeleton.Service.Model.Accounts;
+using AngularSkeleton.Service.Model.Users;
 
 namespace AngularSkeleton.Service
 {
@@ -31,8 +32,55 @@ namespace AngularSkeleton.Service
         Task<User> AuthorizeAsync(string username, string password);
 
         /// <summary>
+        ///     Creates a new user.
+        /// </summary>
+        Task<UserModel> CreateUserAsync(UserAddModel model);
+
+        /// <summary>
+        ///     Removes a user.
+        /// </summary>
+        /// <param name="userId">The user id</param>
+        Task<int> DeleteUserAsync(long userId);
+
+        /// <summary>
+        ///     Returns a collection of all users.
+        /// </summary>
+        Task<IEnumerable<UserModel>> GetAllUsersAsync();
+
+        /// <summary>
         ///     Returns the currently logged-in user
         /// </summary>
         Task<UserModel> GetCurrentUserAsync();
+
+        /// <summary>
+        ///     Returns a user with given id.
+        /// </summary>
+        /// <param name="userId">The user id</param>
+        Task<UserModel> GetUserAsync(long userId);
+
+        /// <summary>
+        ///     Resets a user's password and sends an email with change token.
+        /// </summary>
+        /// <param name="userId">The userId</param>
+        Task<bool> ResetPasswordAsync(long userId);
+
+        /// <summary>
+        ///     Toggles a user's active status.
+        /// </summary>
+        /// <param name="userId">The user id</param>
+        Task<int> ToggleUserAsync(long userId);
+
+        /// <summary>
+        ///     Updates a user.
+        /// </summary>
+        /// <param name="model">The user model</param>
+        /// <param name="userId">The user id</param>
+        Task<int> UpdateUserAsync(UserUpdateModel model, long userId);
+
+        /// <summary>
+        ///     Indicates if a username is already in-use
+        /// </summary>
+        /// <param name="username">The user name</param>
+        Task<bool> UsernameExistsAsync(string username);
     }
 }

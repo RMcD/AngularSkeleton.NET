@@ -16,7 +16,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Service;
-using AngularSkeleton.Service.Model.Catalog;
+using AngularSkeleton.Service.Model.Products;
 using Moq;
 using Newtonsoft.Json.Linq;
 using Shouldly;

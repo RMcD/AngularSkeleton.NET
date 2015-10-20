@@ -15,6 +15,7 @@
  
 interface IUser extends restangular.IElement {
     id?: string
+    archived?: boolean
     avatar: string
     email: string
     lastLogin: Date
@@ -31,7 +32,15 @@ interface IUser extends restangular.IElement {
 //
 
 interface IUsersRepository {
+    create(user: IUser): angular.IPromise<IUser>
+    find(id: string): angular.IPromise<IUser>
+    getAll(): angular.IPromise<Array<IUser>>
+    getAllArchived(): angular.IPromise<Array<IUser>>
+    getAllActive(): angular.IPromise<Array<IUser>>
     me(): angular.IPromise<IUser>
+    remove(user: IUser): angular.IPromise<any>
+    save(user: IUser): angular.IPromise<any>
+    toggle(user: IUser): angular.IPromise<any>
 }
 
 
@@ -54,16 +63,57 @@ m.factory('users', ['Restangular', (restangular: restangular.IService) => {
         model.fullName = function() {
             return this.nameFirst + ' ' + this.nameLast
         }
-        return model;
+        return model
     })
     
-    function me() {
-        return <angular.IPromise<IUser>> restangular.all('users').customGET('me')
+    // methods
+
+    function create(user: IUser) {
+        return <angular.IPromise<IUser>>restangular.all('users').post(user)
     }
 
+    function find(id: string) {
+        return <angular.IPromise<IUser>>restangular.one('users', id).get()
+    }
+
+    function getAll() {
+        return restangular.all('users').getList()
+    }
+
+    function getAllActive() {
+        return restangular.all('users').getList().then((data: Array<IUser>) => data.filter(o => o.archived === false))
+    }
+
+    function getAllArchived() {
+        return restangular.all('users').getList().then((data: Array<IUser>) => data.filter(o => o.archived))
+    }
+
+    function me() {
+        return <angular.IPromise<IUser>>restangular.all('users').customGET('me')
+    }
+
+    function remove(user: IUser) {
+        return user.remove()
+    }
+
+    function save(user: IUser) {
+        return user.put()
+    }
+
+    function toggle(user: IUser) {
+        return user.customPOST(null, 'toggle')
+    }
 
     var repository: IUsersRepository = {
-        me: me
+        create: create,
+        find: find,
+        getAll: getAll,
+        getAllActive: getAllActive,
+        getAllArchived: getAllArchived,
+        me: me,
+        remove: remove,
+        save: save,
+        toggle: toggle
     }
 
     return repository

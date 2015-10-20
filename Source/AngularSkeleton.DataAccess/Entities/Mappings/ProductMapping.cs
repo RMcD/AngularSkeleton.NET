@@ -19,8 +19,9 @@ namespace AngularSkeleton.DataAccess.Entities.Mappings
     {
         public ProductMapping()
         {
-            Property(client => client.Name).HasMaxLength(100).IsRequired();
+            Property(client => client.Active).IsRequired();
             Property(client => client.Description).IsOptional();
+            Property(client => client.Name).HasMaxLength(100).IsRequired();
             Property(client => client.QuantityAvailable).IsRequired();
         }
 

@@ -31,5 +31,10 @@ namespace AngularSkeleton.DataAccess.Repositories.Impl
         {
             return await DbSet.SingleOrDefaultAsync(o => o.Username == username);
         }
+
+        public async Task<bool> UsernameExistsAsync(string username)
+        {
+            return await DbSet.AnyAsync(o => o.Username == username);
+        }
     }
 }

@@ -46,7 +46,6 @@ namespace AngularSkeleton.Domain.Accounts
         public User(string username) : this()
         {
             Condition.Requires(username, "username").IsNotNullOrWhiteSpace().IsShorterOrEqual(50);
-
             Username = username;
         }
 
@@ -66,6 +65,8 @@ namespace AngularSkeleton.Domain.Accounts
                 return string.Format("{0}/{1}", Configuration.Gravatar.Url, hash);
             }
         }
+
+        public bool Archived { get; set; }
 
         public bool IsAdmin { get; set; }
 

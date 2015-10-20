@@ -12,10 +12,14 @@ using AngularSkeleton.Domain.Accounts;
 
 namespace AngularSkeleton.DataAccess.Entities.Mappings
 {
+    /// <summary>
+    ///     Mapping for <see cref="User" /> entity
+    /// </summary>
     internal class UserMapping : MappingBase<User>
     {
         public UserMapping()
         {
+            Property(user => user.Archived).IsRequired();
             Property(user => user.Email).HasMaxLength(128).IsRequired();
             Property(user => user.IsAdmin).IsRequired();
             Property(user => user.LastLogin).IsOptional();

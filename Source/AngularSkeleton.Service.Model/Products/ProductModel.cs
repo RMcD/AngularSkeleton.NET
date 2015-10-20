@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace AngularSkeleton.Service.Model.Catalog
+namespace AngularSkeleton.Service.Model.Products
 {
     /// <summary>
     ///     Models a product

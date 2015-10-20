@@ -10,8 +10,8 @@
 
 using AngularSkeleton.Domain.Accounts;
 using AngularSkeleton.Domain.Catalog;
-using AngularSkeleton.Service.Model.Accounts;
-using AngularSkeleton.Service.Model.Catalog;
+using AngularSkeleton.Service.Model.Products;
+using AngularSkeleton.Service.Model.Users;
 using AutoMapper;
 
 namespace AngularSkeleton.Service.Config

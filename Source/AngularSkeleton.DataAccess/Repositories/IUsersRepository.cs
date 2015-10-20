@@ -29,5 +29,11 @@ namespace AngularSkeleton.DataAccess.Repositories
         /// </summary>
         /// <param name="username">The username</param>
         Task<User> FindByUsernameAsync(string username);
+
+        /// <summary>
+        ///     Indicates if username is in-use
+        /// </summary>
+        /// <param name="username">The username</param>
+        Task<bool> UsernameExistsAsync(string username);
     }
 }

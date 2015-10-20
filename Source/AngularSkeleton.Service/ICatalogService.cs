@@ -10,7 +10,7 @@
 
 using System.Threading.Tasks;
 using AngularSkeleton.DataAccess.Util;
-using AngularSkeleton.Service.Model.Catalog;
+using AngularSkeleton.Service.Model.Products;
 
 namespace AngularSkeleton.Service
 {

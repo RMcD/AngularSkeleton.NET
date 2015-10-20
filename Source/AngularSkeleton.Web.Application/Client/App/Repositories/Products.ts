@@ -10,70 +10,70 @@
 
 
 // ****************************************************************************
-// Interface Client
+// Interface IProduct
 //
 
-interface IClient extends restangular.IElement {
-    address: string
-    archived: boolean
-    currencyCode: string
-    hasActiveProjects: boolean
-    id: string
+interface IProduct extends restangular.IElement {
+    active: boolean
+    description: string
+    id: number
     name: string
+    quantityAvailable: number
+    dateAdded: Date
 }
 
 // ****************************************************************************
-// Interface IClientsRepository
+// Interface IProductsRepository
 //
 
-interface IClientsRepository {
-    find(id: string): angular.IPromise<IClient>
-    getAll(): angular.IPromise<Array<IClient>>
-    create(client: IClient): angular.IPromise<IClient>
-    remove(client: IClient): angular.IPromise<any>
-    save(client: IClient): angular.IPromise<any>
-    toggle(client: IClient): angular.IPromise<any>
+interface IProductsRepository {
+    find(id: string): angular.IPromise<IProduct>
+    getAll(): angular.IPromise<Array<IProduct>>
+    create(product: IProduct): angular.IPromise<IProduct>
+    remove(product: IProduct): angular.IPromise<any>
+    save(product: IProduct): angular.IPromise<any>
+    toggle(product: IProduct): angular.IPromise<any>
 }
 
 
 // ****************************************************************************
-// Module app.repositories.clients
+// Module app.repositories.products
 //
 
-var m = angular.module('app.repositories.clients', ['restangular'])
+var m = angular.module('app.repositories.products', ['restangular'])
 
 
 // ****************************************************************************
 // Clients repository
 //
 
-m.factory('clients', ['Restangular', (restangular: restangular.IService) => {
+m.factory('products', ['Restangular', (restangular: restangular.IService) => {
 
-    function create(client: IClient) {
-        return <angular.IPromise<IClient>> restangular.all('clients').post(client)
+    function create(client: IProduct) {
+        return <angular.IPromise<IProduct>>restangular.all('products').post(client)
     }
 
     function find(id: string) {
-        return <angular.IPromise<IClient>> restangular.one('clients', id).get()
+        return <angular.IPromise<IProduct>>restangular.one('products', id).get()
     }
 
     function getAll() {
-        return <angular.IPromise<Array<IClient>>> restangular.all('clients').getList()
+        return <angular.IPromise<Array<IProduct>>>restangular.all('products').getList()
     }
 
-    function remove(client: IClient) {
-        return client.remove()
+    function remove(product: IProduct) {
+        return product.remove()
     }
 
-    function save(client: IClient) {
-        return client.put()
+    function save(product: IProduct) {
+        return product.put()
     }
 
-    function toggle(client: IClient) {
-        return client.customPOST(null, 'toggle')
+    function toggle(product: IProduct) {
+        return product.customPOST(null, 'toggle')
     }
 
-    var repository: IClientsRepository = {
+    var repository: IProductsRepository = {
         create: create,
         find: find,
         getAll: getAll,

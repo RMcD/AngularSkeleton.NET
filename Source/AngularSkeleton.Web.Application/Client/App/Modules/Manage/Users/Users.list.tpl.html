@@ -1,0 +1,89 @@
+﻿
+<!-- start: users.list -->
+
+<ul class="breadcrumb breadcrumb-page">
+    <li><i class="fa fa-home"></i><a data-ui-sref="app.home">Home</a></li>
+    <li><a data-ui-sref="app.manage">Manage</a></li>
+    <li class="active">Users</li>
+</ul>
+
+<div class="page-header">
+    <h1 class="anim-slide-left anim-fade"> Manage People </h1>
+    <div class="pull-right anim-fade">
+        <a class="btn btn-primary btn-rounded btn-labeled" data-ng-click="add()" ladda="adding"> <span class="btn-label icon fa fa-plus-circle"></span> Add User </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+
+                <ul class="nav nav-tabs nav-tabs-xs">
+                    <li class="active"> <a href="" data-toggle="tab" data-ng-click="tab = 'active'">Archived<span class="badge badge-warning" data-ng-bind="activeUsers.length"></span></a> </li>
+                    <li> <a href="" data-toggle="tab" data-ng-click="tab = 'archived'">Archived<span class="badge badge-danger" data-ng-bind="archivedUsers.length"></span></a> </li>
+                </ul>
+
+                <div class="tab-content tab-content-bordered">
+
+                    <!-- ACTIVE -->
+
+                    <div class="tab-pane fade" data-ng-class="{'active in': tab == 'active'}">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-4"> Name </th>
+                                    <th class="col-md-2 hidden-xs"> Role </th>
+                                    <th class="col-md-2 hidden-xs"> Last Seen </th>
+                                    <th class="col-md-4 hidden-xs align-right"> Email </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="user in activeUsers" data-ng-class="{first : $first}">
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm btn-outline btn-rounded btn-labeled" data-ng-click="edit(user)">
+                                            <span class="btn-label icon fa fa-pencil-square-o"></span> Edit
+                                        </button> &nbsp;
+                                        <span class="name" data-ng-bind="user.fullname()"></span>
+                                    </td>
+                                    <td class="hidden-xs" data-ng-bind="user.permission"></td>
+                                    <td class="hidden-xs"></td>
+                                    <td class="hidden-xs" data-ng-bind="user.email" class="align-right"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="alert alert-warning no-entries" data-ng-show="activeUsers.length == 0"> There are no people </div>
+                    </div>
+
+                    <!-- ARCHIVED -->
+
+                    <div class="tab-pane fade" data-ng-class="{'active in': tab == 'archived'}">
+                        <table class="table table-hover" data-ng-show="archivedUsers.length > 0">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-4"> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="user in archivedUsers" data-ng-class="{first : $first}">
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm btn-outline btn-rounded btn-labeled" data-ng-click="reactivate(user)">
+                                            <span class="btn-label icon fa fa-mail-reply"></span>Reactivate
+                                        </button> &nbsp;
+                                        <span class="name" data-ng-bind="user.fullname"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="alert alert-warning no-entries" data-ng-show="archivedUsers.length == 0"> There are no archived people </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end: people.view -->

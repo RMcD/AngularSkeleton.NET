@@ -11,7 +11,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace AngularSkeleton.Service.Model.Accounts
+namespace AngularSkeleton.Service.Model.Users
 {
     /// <summary>
     ///     Models a user
@@ -25,6 +25,12 @@ namespace AngularSkeleton.Service.Model.Accounts
         public long Id { get; set; }
 
         /// <summary>
+        ///     Indicates if the user is archived
+        /// </summary>
+        [DataMember]
+        public bool Archived { get; set; }
+
+        /// <summary>
         ///     The avatar image url
         /// </summary>
         [DataMember]
@@ -34,7 +40,7 @@ namespace AngularSkeleton.Service.Model.Accounts
         ///     Indicates if the user is an admin
         /// </summary>
         [DataMember]
-        public bool IsAdmin { get; internal set; }
+        public bool IsAdmin { get; set; }
 
         /// <summary>
         ///     The user last successfful login date

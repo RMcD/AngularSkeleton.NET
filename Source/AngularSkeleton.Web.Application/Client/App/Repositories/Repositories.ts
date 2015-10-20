@@ -15,7 +15,7 @@
 
 interface IRepositories {
     authentication: IAuthenticationRepository
-    clients: IClientsRepository
+    products: IProductsRepository
     users: IUsersRepository
 }
 
@@ -26,7 +26,7 @@ interface IRepositories {
 
 var m = angular.module('app.repositories', [
     'app.repositories.authentication',
-    'app.repositories.clients',
+    'app.repositories.products',
     'app.repositories.users'
 ])
 
@@ -36,17 +36,17 @@ var m = angular.module('app.repositories', [
 
 m.factory('repositories', [
     'authentication',
-    'clients',
+    'products',
     'users',
     (
         authentication: IAuthenticationRepository,
-        clients: IClientsRepository,
+        products: IProductsRepository,
         users: IUsersRepository
         ) => {
 
         var repositories: IRepositories = {
             authentication: authentication,
-            clients: clients,
+            products: products,
             users: users
         }
         return repositories

@@ -10,10 +10,10 @@
 
 using System.Runtime.Serialization;
 
-namespace AngularSkeleton.Service.Model.Catalog
+namespace AngularSkeleton.Service.Model.Products
 {
     /// <summary>
-    ///     Product add model
+    ///     Model for adding a product
     /// </summary>
     public class ProductAddModel : ModelBase
     {

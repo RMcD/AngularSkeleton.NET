@@ -70,7 +70,7 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
 // Controller app.manage.users.list
 //
 
-interface IPeopleListScope extends ng.IScope {
+interface IUsersListScope extends ng.IScope {
     add(): void
     adding: boolean
     activeUsers: Array<IUser>
@@ -83,7 +83,7 @@ interface IPeopleListScope extends ng.IScope {
 }
 
 m.controller('app.manage.users.list', ['$scope', 'repositories', 'users', 'services',
-    ($scope: IPeopleListScope, repositories: IRepositories, users: Array<IUser>, services: IServices) => {
+    ($scope: IUsersListScope, repositories: IRepositories, users: Array<IUser>, services: IServices) => {
 
         services.logger.debug('Loaded controller app.manage.users.list')
 
@@ -129,7 +129,7 @@ m.controller('app.manage.users.list', ['$scope', 'repositories', 'users', 'servi
 // Controller app.manage.users.edit
 //
 
-interface IPeopleEditScope extends ng.IScope {
+interface IUsersEditScope extends ng.IScope {
     archive(user: IUser): void
     remove(user: IUser): void
     save(isValid: boolean): void
@@ -139,7 +139,7 @@ interface IPeopleEditScope extends ng.IScope {
 }
 
 m.controller('app.manage.users.edit', ['$scope', 'user', 'repositories', 'services',
-    ($scope: IPeopleEditScope, user: IUser, repositories: IRepositories, services: IServices) => {
+    ($scope: IUsersEditScope, user: IUser, repositories: IRepositories, services: IServices) => {
 
         services.logger.debug('Loaded controller app.manage.users.edit')
 
@@ -193,7 +193,7 @@ m.controller('app.manage.users.edit', ['$scope', 'user', 'repositories', 'servic
 // Controller app.manage.users.add
 //
 
-interface IPeopleAddScope extends ng.IScope {
+interface IUsersAddScope extends ng.IScope {
     user: IUser
     save(isValid: boolean): void
     submitted: boolean
@@ -201,7 +201,7 @@ interface IPeopleAddScope extends ng.IScope {
 }
 
 m.controller('app.manage.users.add', ['$scope', 'repositories', 'services',
-    ($scope: IPeopleAddScope, repositories: IRepositories, services: IServices) => {
+    ($scope: IUsersAddScope, repositories: IRepositories, services: IServices) => {
 
         services.logger.debug('Loaded controller app.manage.users.add')
 

@@ -23,5 +23,9 @@ namespace AngularSkeleton.Common.Exceptions
         public BusinessException(string message) : base(message)
         {
         }
+
+        public BusinessException(string message, params object[] args) : base(string.Format(message, args))
+        {
+        }
     }
 }

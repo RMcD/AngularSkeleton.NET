@@ -174,6 +174,12 @@
     <Content Include="Client\App\Modules\Layout\Navbar.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Sidebar.tpl.html" />
     <Content Include="Client\App\Modules\Login\Login.tpl.html" />
+    <Content Include="Client\App\Modules\Manage\Products\Products.edit.tpl.html" />
+    <Content Include="Client\App\Modules\Manage\Products\Products.list.tpl.html" />
+    <Content Include="Client\App\Modules\Manage\Products\Products.add.tpl.html" />
+    <Content Include="Client\App\Modules\Manage\Users\Users.add.tpl.html" />
+    <Content Include="Client\App\Modules\Manage\Users\Users.list.tpl.html" />
+    <Content Include="Client\App\Modules\Manage\Users\Users.edit.tpl.html" />
     <Content Include="Client\Client.js" />
     <Content Include="Client\Content\Fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="Client\Content\Images\assets\logo-big.png" />
@@ -279,6 +285,7 @@
     <TypeScriptCompile Include="Client\App\Modules\Layout\Layout.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Login\Login.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Manage.ts" />
+    <TypeScriptCompile Include="Client\App\Modules\Manage\Products\Products.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Users\Users.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Authentication.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Products.ts" />
@@ -320,9 +327,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Client\App\Modules\Manage\Products\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

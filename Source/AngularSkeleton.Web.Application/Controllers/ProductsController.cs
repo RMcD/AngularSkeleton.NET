@@ -20,7 +20,7 @@ using System.Web.Http.Description;
 using AngularSkeleton.Common;
 using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Service;
-using AngularSkeleton.Service.Model.Catalog;
+using AngularSkeleton.Service.Model.Products;
 using AngularSkeleton.Web.Application.Infrastructure.Attributes;
 
 namespace AngularSkeleton.Web.Application.Controllers

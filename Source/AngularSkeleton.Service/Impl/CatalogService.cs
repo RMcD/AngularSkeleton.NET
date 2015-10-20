@@ -16,7 +16,7 @@ using AngularSkeleton.Common.Exceptions;
 using AngularSkeleton.DataAccess.Repositories;
 using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Domain.Catalog;
-using AngularSkeleton.Service.Model.Catalog;
+using AngularSkeleton.Service.Model.Products;
 using AutoMapper;
 using CuttingEdge.Conditions;
 
