@@ -44,6 +44,13 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
 //
 
 interface ICatalogScope {
+    clear(): void
+    criteria: string
+    load(): void
+    more(): void
+    products: Array<IProduct>
+    skip: number
+    take: number
 }
 
 m.controller('app.catalog', ['$scope', 'repositories', 'services',
@@ -51,5 +58,26 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
 
         services.logger.debug('Loaded controller app.catalog')
         
+        $scope.skip = 0
+        $scope.take = 5
+        $scope.criteria = null
+        
+        $scope.clear = () => {
+            $scope.criteria = null
+            $scope.load()
+        }
+
+        $scope.load = () => {
+            repositories.products.search($scope.criteria, $scope.skip, $scope.take).then((data) => {
+                $scope.products = data
+            })
+        }
+
+        $scope.more = () => {
+            $scope.take = $scope.take + 10
+            $scope.load()
+        }
+
+        $scope.load()
     }
 ]) 

@@ -33,9 +33,8 @@
                             <thead>
                             <tr>
                                 <th class="col-md-4">  </th>
-                                <th class="col-md-2 hidden-xs"> Admin </th>
+                                <th class="col-md-2 hidden-xs"> </th>
                                 <th class="col-md-2 hidden-xs"> Last Seen </th>
-                                <th class="col-md-4 hidden-xs align-right"> Username </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -49,7 +48,6 @@
                                     <td class="hidden-xs"><span class="label label-success" ng-show="user.isAdmin">admin</span></td>
                                     <td class="hidden-xs" am-time-ago="user.lastLogin" ng-show="user.lastLogin != null"></td>
                                     <td class="hidden-xs" ng-show="user.lastLogin == null">Never</td>
-                                    <td class="hidden-xs" data-ng-bind="user.username" class="align-right"></td>
                                 </tr>
                             </tbody>
                         </table>

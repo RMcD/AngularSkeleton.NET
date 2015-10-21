@@ -22,6 +22,7 @@ interface IProduct extends restangular.IElement {
     dateAdded: Date
 }
 
+
 // ****************************************************************************
 // Interface IProductsRepository
 //
