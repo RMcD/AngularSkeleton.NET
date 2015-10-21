@@ -46,7 +46,7 @@ interface JQuery {
 
     /**
     * The action controls or checks the state of the ladda button.  
-    * Possible actions are 'start', 'stop', 'toggle', 'stopAll'
+    * Possible actions are 'skip', 'stop', 'toggle', 'stopAll'
     * Possible check 'isLoading'
     */
     ladda(action: string): JQuery;

@@ -27,11 +27,12 @@ interface IProduct extends restangular.IElement {
 //
 
 interface IProductsRepository {
+    create(product: IProduct): angular.IPromise<IProduct>
     find(id: string): angular.IPromise<IProduct>
     getAll(): angular.IPromise<Array<IProduct>>
-    create(product: IProduct): angular.IPromise<IProduct>
     remove(product: IProduct): angular.IPromise<any>
     save(product: IProduct): angular.IPromise<any>
+    search(criteria: string, skip: number, take: number): angular.IPromise<Array<IProduct>>
     toggle(product: IProduct): angular.IPromise<any>
 }
 
@@ -44,7 +45,7 @@ var m = angular.module('app.repositories.products', ['restangular'])
 
 
 // ****************************************************************************
-// Clients repository
+// Products repository
 //
 
 m.factory('products', ['Restangular', (restangular: restangular.IService) => {
@@ -69,6 +70,10 @@ m.factory('products', ['Restangular', (restangular: restangular.IService) => {
         return product.put()
     }
 
+    function search(criteria: string, skip: number, take: number) {
+        return <angular.IPromise<Array<IProduct>>>restangular.all('products').getList({criteria: criteria, skip: skip, take: take})
+    }
+
     function toggle(product: IProduct) {
         return product.customPOST(null, 'toggle')
     }
@@ -79,6 +84,7 @@ m.factory('products', ['Restangular', (restangular: restangular.IService) => {
         getAll: getAll,
         remove: remove,
         save: save,
+        search: search,
         toggle: toggle
     }
 

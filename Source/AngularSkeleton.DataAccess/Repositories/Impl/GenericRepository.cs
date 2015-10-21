@@ -64,7 +64,7 @@ namespace AngularSkeleton.DataAccess.Repositories.Impl
 
             return options.RetrieveAll ?
                 new PagedResult<TEntity>(query.ToList()) :
-                new PagedResult<TEntity>(query.OrderBy(o => o.Id).Skip(options.Skip).Take(options.Top).ToList(), 0);
+                new PagedResult<TEntity>(query.OrderBy(o => o.Id).Skip(options.Skip).Take(options.Take).ToList(), 0);
         }
 
         public virtual async Task<PagedResult<TEntity>> GetAllAsync(QueryOptions options, Expression<Func<TEntity, bool>> filter = null)
@@ -77,7 +77,7 @@ namespace AngularSkeleton.DataAccess.Repositories.Impl
 
             return options.RetrieveAll ?
                 new PagedResult<TEntity>(await query.ToListAsync()) :
-                new PagedResult<TEntity>(await query.OrderBy(o => o.Id).Skip(options.Skip).Take(options.Top).ToListAsync(), 0);
+                new PagedResult<TEntity>(await query.OrderBy(o => o.Id).Skip(options.Skip).Take(options.Take).ToListAsync(), 0);
         }
 
         public virtual void Insert(TEntity entity)

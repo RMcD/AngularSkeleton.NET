@@ -70,9 +70,10 @@ namespace AngularSkeleton.Web.Application.Controllers
         [Route("products")]
         [AcceptVerbs("GET")]
         [ResponseType(typeof (ICollection<ProductModel>))]
-        public async Task<HttpResponseMessage> SearchAsync(string criteria = null)
+        public async Task<HttpResponseMessage> SearchAsync(string criteria = null, int skip = 0, int take = 10)
         {
-            var products = await Services.CatalogManagement.SearchProductsAsync(QueryOptions.AllItems, criteria);
+            var options = new QueryOptions {Skip = skip, Take = take};
+            var products = await Services.CatalogManagement.SearchProductsAsync(options, criteria);
 
             var response = Request.CreateResponse(products.Items.ToList());
             response.Headers.Add(Constants.ResponseHeaders.TotalCount, products.TotalRecords.ToString());

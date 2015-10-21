@@ -598,7 +598,7 @@ interface JQueryAnimationOptions {
      */
     always?: (animation: JQueryPromise<any>, jumpedToEnd: boolean) => any; 
     /**
-     * A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string. When a custom queue name is used the animation does not automatically start; you must call .dequeue("queuename") to start it.
+     * A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string. When a custom queue name is used the animation does not automatically skip; you must call .dequeue("queuename") to skip it.
      */
     queue?: any; 
     /**
@@ -3133,7 +3133,7 @@ interface JQuery {
     /**
      * Reduce the set of matched elements to a subset specified by a range of indices.
      * 
-     * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.
+     * @param skip An integer indicating the 0-based position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.
      * @param end An integer indicating the 0-based position at which the elements stop being selected. If negative, it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.
      */
     slice(start: number, end?: number): JQuery;

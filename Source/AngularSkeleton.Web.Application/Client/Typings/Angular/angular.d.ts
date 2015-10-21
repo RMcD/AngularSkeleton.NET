@@ -1,4 +1,4 @@
-// Type definitions for Angular JS 1.4+
+﻿// Type definitions for Angular JS 1.4+
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -52,7 +52,7 @@ declare module angular {
         bind(context: any, fn: Function, ...args: any[]): Function;
 
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -63,7 +63,7 @@ declare module angular {
          */
         bootstrap(element: string, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -74,7 +74,7 @@ declare module angular {
          */
         bootstrap(element: string, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -85,7 +85,7 @@ declare module angular {
          */
         bootstrap(element: string, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -96,7 +96,7 @@ declare module angular {
          */
         bootstrap(element: JQuery, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -107,7 +107,7 @@ declare module angular {
          */
         bootstrap(element: JQuery, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -118,7 +118,7 @@ declare module angular {
          */
         bootstrap(element: JQuery, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -129,7 +129,7 @@ declare module angular {
          */
         bootstrap(element: Element, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -140,7 +140,7 @@ declare module angular {
          */
         bootstrap(element: Element, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -151,7 +151,7 @@ declare module angular {
          */
         bootstrap(element: Element, modules?: string[], config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -162,7 +162,7 @@ declare module angular {
          */
         bootstrap(element: Document, modules?: string, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.
@@ -173,7 +173,7 @@ declare module angular {
          */
         bootstrap(element: Document, modules?: Function, config?: IAngularBootstrapConfig): auto.IInjectorService;
         /**
-         * Use this function to manually start up angular application.
+         * Use this function to manually skip up angular application.
          *
          * @param element DOM element which is the root of angular application.
          * @param modules An array of modules to load into the application.

@@ -1,4 +1,4 @@
-// Type definitions for Angular UI Bootstrap 0.13.3
+﻿// Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -724,7 +724,7 @@ declare module angular.ui.bootstrap {
          * Provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
          *
          * @param element The DOMElement that will be animated
-         * @param trigger The thing that will cause the transition to start:
+         * @param trigger The thing that will cause the transition to skip:
          *   - As a string, it represents the css class to be added to the element.
          *   - As an object, it represents a hash of style attributes to be applied to the element.
          *   - As a function, it represents a function to be called that will cause the transition to occur.

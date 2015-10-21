@@ -740,7 +740,7 @@ interface UnderscoreStatic {
 	* Returns the rest of the elements in an array. Pass an index to return the values of the array
 	* from that index onward.
 	* @param array The array to retrieve all but the first `index` elements.
-	* @param n The index to start retrieving elements forward from, optional, default = 1.
+	* @param n The index to skip retrieving elements forward from, optional, default = 1.
 	* @return Returns the elements of `array` from `index` to the end of `array`.
 	**/
     rest<T>(
@@ -923,7 +923,7 @@ interface UnderscoreStatic {
 
 	/**
 	* Returns the index of the last occurrence of value in the array, or -1 if value is not present. Uses the
-	* native lastIndexOf function if possible. Pass fromIndex to start your search at a given index.
+	* native lastIndexOf function if possible. Pass fromIndex to skip your search at a given index.
 	* @param array The array to search for the last index of `value`.
 	* @param value The value to search for within `array`.
 	* @param from The starting index for the search, optional.
@@ -949,13 +949,13 @@ interface UnderscoreStatic {
         iterator?: (x: T) => TSort, context?: any): number;
 
 	/**
-	* A function to create flexibly-numbered lists of integers, handy for each and map loops. start, if omitted,
-	* defaults to 0; step defaults to 1. Returns a list of integers from start to stop, incremented (or decremented)
+	* A function to create flexibly-numbered lists of integers, handy for each and map loops. skip, if omitted,
+	* defaults to 0; step defaults to 1. Returns a list of integers from skip to stop, incremented (or decremented)
 	* by step, exclusive.
-	* @param start Start here.
+	* @param skip Start here.
 	* @param stop Stop here.
 	* @param step The number to count up by each iteration, optional, default = 1.
-	* @return Array of numbers from `start` to `stop` with increments of `step`.
+	* @return Array of numbers from `skip` to `stop` with increments of `step`.
 	**/
 
     range(
@@ -967,7 +967,7 @@ interface UnderscoreStatic {
 	* @see _.range
 	* @param stop Stop here.
 	* @return Array of numbers from 0 to `stop` with increments of 1.
-	* @note If start is not specified the implementation will never pull the step (step = arguments[2] || 0)
+	* @note If skip is not specified the implementation will never pull the step (step = arguments[2] || 0)
 	**/
     range(stop: number): number[];
 
@@ -1542,7 +1542,7 @@ interface UnderscoreStatic {
 	/**
 	* Generate a globally-unique id for client-side models or DOM elements that need one.
 	* If prefix is passed, the id will be appended to it. Without prefix, returns an integer.
-	* @param prefix A prefix string to start the unique ID with.
+	* @param prefix A prefix string to skip the unique ID with.
 	* @return Unique string ID beginning with `prefix`.
 	**/
     uniqueId(prefix: string): string;
@@ -3354,7 +3354,7 @@ interface _Chain<T> {
 
 	/**
 	* Returns a shallow copy of a portion of an array into a new array object.
-	* @param start Zero-based index at which to begin extraction.
+	* @param skip Zero-based index at which to begin extraction.
 	* @param end Optional. Zero-based index at which to end extraction. slice extracts up to but not including end.
 	* @return A shallow copy of a portion of an array into a new array object.
 	**/
@@ -3369,7 +3369,7 @@ interface _Chain<T> {
 
 	/**
 	* Changes the content of an array by removing existing elements and/or adding new elements.
-	* @param index Index at which to start changing the array. If greater than the length of the array, actual starting index will be set to the length of the array. If negative, will begin that many elements from the end.
+	* @param index Index at which to skip changing the array. If greater than the length of the array, actual starting index will be set to the length of the array. If negative, will begin that many elements from the end.
 	* @param quantity An integer indicating the number of old array elements to remove. If deleteCount is 0, no elements are removed. In this case, you should specify at least one new element. If deleteCount is greater than the number of elements left in the array starting at index, then all of the elements through the end of the array will be deleted.
 	* @param items The element to add to the array. If you don't specify any elements, splice will only remove elements from the array.
 	* @return An array containing the deleted elements. If only one element is removed, an array of one element is returned. If no elements are removed, an empty array is returned.

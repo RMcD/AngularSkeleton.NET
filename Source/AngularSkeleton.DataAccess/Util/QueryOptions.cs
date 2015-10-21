@@ -20,7 +20,7 @@ namespace AngularSkeleton.DataAccess.Util
         public QueryOptions()
         {
             Skip = 0;
-            Top = Constants.DataAccess.DefaultRecordsPerQuery;
+            Take = Constants.DataAccess.DefaultRecordsPerQuery;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace AngularSkeleton.DataAccess.Util
 
         public int Skip { get; set; }
 
-        public int Top { get; set; }
+        public int Take { get; set; }
 
         internal bool RetrieveAll { get; private set; }
     }

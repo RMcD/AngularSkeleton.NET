@@ -31,7 +31,7 @@ angular.module('ngProgress.provider', ['ngProgress.directive'])
                 this.progressbarEl.eq(0).children().css('background-color', this.color);
                 this.progressbarEl.eq(0).children().css('color', this.color);
             }
-            // The ID for the interval controlling start()
+            // The ID for the interval controlling skip()
             this.intervalCounterId = 0;
 
                 // Starts the animation and adds between 0 - 5 percent to loading

@@ -40,7 +40,7 @@ declare module angular.animate {
          * Performs an inline animation on the element.
          *
          * @param element the element that will be the focus of the animation
-         * @param from a collection of CSS styles that will be applied to the element at the start of the animation
+         * @param from a collection of CSS styles that will be applied to the element at the skip of the animation
          * @param to a collection of CSS styles that the element will animate towards
          * @param className an optional CSS class that will be added to the element for the duration of the animation (the default class is 'ng-inline-animate')
          * @param options an optional collection of styles that will be picked up by the CSS transition/animation
@@ -153,7 +153,7 @@ declare module angular.animate {
         to?: Object;
 
         /**
-         * The starting CSS styles (a key/value object) that will be applied at the start of the animation.
+         * The starting CSS styles (a key/value object) that will be applied at the skip of the animation.
          */
         from?: Object;
 
