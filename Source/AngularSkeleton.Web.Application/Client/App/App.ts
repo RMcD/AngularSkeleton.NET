@@ -34,7 +34,8 @@ var m = angular.module('app', [
     'restangular',
     'ui.bootstrap',
     'ui.router',
-    'ui.select'
+    'ui.select',
+    'uiSwitch'
 ]) 
  
 

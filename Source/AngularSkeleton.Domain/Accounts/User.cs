@@ -62,7 +62,7 @@ namespace AngularSkeleton.Domain.Accounts
             get
             {
                 var hash = GravatarUtil.HashEmailForGravatar(Email);
-                return string.Format("{0}/{1}", Configuration.Gravatar.Url, hash);
+                return string.Format(Configuration.Gravatar.Url, hash);
             }
         }
 

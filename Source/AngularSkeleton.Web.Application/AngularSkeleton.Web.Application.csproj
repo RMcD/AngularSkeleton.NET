@@ -204,6 +204,7 @@
     <Content Include="Client\Content\Images\themes\adminflare\ie-navbar-bg.png" />
     <Content Include="Client\Content\Images\themes\adminflare\menu-bg.png" />
     <Content Include="Client\Content\Images\themes\clean\body-bg.gif" />
+    <Content Include="Client\Content\Styles\angular-ui-switch.min.css" />
     <Content Include="Client\Content\Styles\application.css" />
     <Content Include="Client\Content\Styles\bootstrap.css" />
     <Content Include="Client\Content\Styles\bootstrap.min.css" />
@@ -219,6 +220,7 @@
     <Content Include="Client\Content\Styles\widgets.min.css" />
     <Content Include="Client\Loader.js" />
     <Content Include="Client\Vendor\angular-ladda.js" />
+    <Content Include="Client\Vendor\angular-ui-switch.js" />
     <Content Include="Client\Vendor\anim-in-out.js" />
     <Content Include="Client\Vendor\ngprogress.js" />
     <Content Include="Favicon.ico" />

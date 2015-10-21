@@ -37,6 +37,12 @@ namespace AngularSkeleton.Service.Model.Users
         public string Avatar { get; set; }
 
         /// <summary>
+        ///     The user email
+        /// </summary>
+        [DataMember]
+        public string Email { get; set; }
+
+        /// <summary>
         ///     Indicates if the user is an admin
         /// </summary>
         [DataMember]

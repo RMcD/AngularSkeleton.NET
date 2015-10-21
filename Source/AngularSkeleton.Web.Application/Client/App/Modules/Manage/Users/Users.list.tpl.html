@@ -46,7 +46,7 @@
                                         </button> &nbsp;&nbsp;
                                         <span class="name" data-ng-bind="user.fullName()"></span>
                                     </td>
-                                    <td class="hidden-xs"><i ng-show="user.isAdmin" class="menu-icon fa fa-thumbs-up centered"></i></td>
+                                    <td class="hidden-xs"><span class="label label-success" ng-show="user.isAdmin">admin</span></td>
                                     <td class="hidden-xs" am-time-ago="user.lastLogin" ng-show="user.lastLogin != null"></td>
                                     <td class="hidden-xs" ng-show="user.lastLogin == null">Never</td>
                                     <td class="hidden-xs" data-ng-bind="user.username" class="align-right"></td>
@@ -63,17 +63,24 @@
                         <table class="table table-hover" data-ng-show="archivedUsers.length > 0">
                             <thead>
                                 <tr>
-                                    <th class="col-md-4"> </th>
+                                    <th class="col-md-4">  </th>
+                                    <th class="col-md-2 hidden-xs"> Admin </th>
+                                    <th class="col-md-2 hidden-xs"> Last Seen </th>
+                                    <th class="col-md-4 hidden-xs align-right"> Username </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr data-ng-repeat="user in archivedUsers" data-ng-class="{first : $first}">
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm btn-outline btn-rounded btn-labeled" data-ng-click="reactivate(user)">
-                                            <span class="btn-label icon fa fa-mail-reply"></span>Reactivate
-                                        </button> &nbsp;
-                                        <span class="name" data-ng-bind="user.fullname"></span>
+                                        <button type="button" class="btn btn-primary btn-sm btn-outline btn-rounded btn-labeled" data-ng-click="edit(user)">
+                                            <span class="btn-label icon fa fa-pencil-square-o"></span> Edit
+                                        </button> &nbsp;&nbsp;
+                                        <span class="name" data-ng-bind="user.fullName()"></span>
                                     </td>
+                                    <td class="hidden-xs"><i ng-show="user.isAdmin" class="menu-icon fa fa-thumbs-up centered"></i></td>
+                                    <td class="hidden-xs" am-time-ago="user.lastLogin" ng-show="user.lastLogin != null"></td>
+                                    <td class="hidden-xs" ng-show="user.lastLogin == null">Never</td>
+                                    <td class="hidden-xs" data-ng-bind="user.username" class="align-right"></td>
                                 </tr>
                             </tbody>
                         </table>

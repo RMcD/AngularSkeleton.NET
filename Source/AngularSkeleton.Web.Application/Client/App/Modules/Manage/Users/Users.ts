@@ -77,7 +77,6 @@ interface IUsersListScope extends ng.IScope {
     archivedUsers: Array<IUser>
     calculateUsers(): void
     edit(user: IUser): void
-    reactivate(user: IUser): void
     tab: string
     users: Array<IUser>
 }
@@ -104,23 +103,6 @@ m.controller('app.manage.users.list', ['$scope', 'repositories', 'users', 'servi
         $scope.edit = (user: IUser) => {
             services.state.go('app.manage.users.edit', { userId: user.id })
         }
-
-        $scope.reactivate = (user: IUser) => {
-            if (!user.archived) {
-                services.logger.success('The user is already active.')
-                return
-            }
-            repositories.users.toggle(user).then(() => {
-                services.logger.success('The user has been activated.')
-                user.archived = false
-                $scope.users.splice($scope.users.indexOf(user), 1)
-                $scope.users.push(user)
-                $scope.calculateUsers()
-            }, response => {
-                services.logger.error('An error occurred activating the user.', response.data)
-            })
-        }
-
     }
 ])
 
@@ -131,6 +113,7 @@ m.controller('app.manage.users.list', ['$scope', 'repositories', 'users', 'servi
 
 interface IUsersEditScope extends ng.IScope {
     archive(user: IUser): void
+    reactivate(user: IUser): void
     remove(user: IUser): void
     save(isValid: boolean): void
     submitted: boolean
@@ -163,6 +146,19 @@ m.controller('app.manage.users.edit', ['$scope', 'user', 'repositories', 'servic
             })
         }
 
+        $scope.reactivate = (user: IUser) => {
+            if (!user.archived) {
+                services.logger.success('The user is already active.')
+                return
+            }
+            repositories.users.toggle(user).then(() => {
+                services.logger.success('The user has been activated.')
+                user.archived = false
+            }, response => {
+                services.logger.error('An error occurred activating the user.', response.data)
+            })
+        }
+
         $scope.remove = (user: IUser) => {
             repositories.users.remove(user).then(() => {
                 services.logger.success('The user has been removed.')
@@ -182,6 +178,8 @@ m.controller('app.manage.users.edit', ['$scope', 'user', 'repositories', 'servic
                     services.state.transitionTo('app.manage.users.list')
                 }, response => {
                     services.logger.error('An error occurred updating the user', response.data)
+                    $scope.submitted = false
+                    $scope.submitting = false
                 })
             }
         }
@@ -213,11 +211,13 @@ m.controller('app.manage.users.add', ['$scope', 'repositories', 'services',
 
             if (isValid) {
                 $scope.submitting = true
-                repositories.users.create($scope.user).then(user => {
-                    services.logger.success(`Created user: ${user.nameFirst} ${user.nameLast}`)
+                repositories.users.create($scope.user).then(() => {
+                    services.logger.success('Created user')
                     services.state.transitionTo('app.manage.users.list')
                 }, response => {
                     services.logger.error('An error occurred creating the user', response.data)
+                    $scope.submitted = false
+                    $scope.submitting = false
                 })
             }
         }

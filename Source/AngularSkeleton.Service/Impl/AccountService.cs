@@ -53,7 +53,7 @@ namespace AngularSkeleton.Service.Impl
             if (await UsernameExistsAsync(model.Username))
                 throw new BusinessException("The username {0} is in-use", model.Username);
 
-            var user = new User(model.Username, model.Email, model.NameFirst, model.NameFirst, model.IsAdmin) {TimezoneUtcOffset = model.TimezoneUtcOffset};
+            var user = new User(model.Username, model.Email, model.NameFirst, model.NameLast, model.IsAdmin) {TimezoneUtcOffset = model.TimezoneUtcOffset};
             user.SetPassword(model.Password);
 
             _repositories.Users.Insert(user);
@@ -115,7 +115,7 @@ namespace AngularSkeleton.Service.Impl
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<int> ToggleUserAsync(long userId)
         {
-            var user = await GetUserAsync(userId);
+            var user = await _repositories.Users.FindAsync(userId);
             user.Archived = !user.Archived;
 
             return await _repositories.SaveChangesAsync();
@@ -124,8 +124,9 @@ namespace AngularSkeleton.Service.Impl
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<int> UpdateUserAsync(UserUpdateModel model, long userId)
         {
-            var user = await GetUserAsync(userId);
+            var user = await _repositories.Users.FindAsync(userId);
 
+            user.Email = model.Email;
             user.IsAdmin = model.IsAdmin;
             user.NameFirst = model.NameFirst;
             user.NameLast = model.NameLast;

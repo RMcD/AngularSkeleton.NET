@@ -37,6 +37,7 @@ $LAB
     .script('//cdnjs.cloudflare.com/ajax/libs/angulartics/0.20.0/angulartics.min.js')
     .script('//cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js').wait()
     .script('//cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js').wait()
+    .script(client_root + '/vendor/angular-ui-switch.js')
     .script(client_root + '/vendor/angular-ladda.js')
     .script(client_root + '/vendor/ngprogress.js')
     .script(client_root + '/vendor/anim-in-out.js').wait()
