@@ -17,7 +17,7 @@ var m = angular.module('app.manage.users', [])
 
 
 // ****************************************************************************
-// Configure module app.manage.users
+// Configure 
 //
 
 m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider, settings: ISystemSettings) => {
@@ -62,7 +62,7 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
                 }
             }
         })
-}
+    }
 ])
 
 
