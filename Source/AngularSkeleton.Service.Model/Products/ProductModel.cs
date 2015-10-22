@@ -15,6 +15,12 @@ namespace AngularSkeleton.Service.Model.Products
         public long Id { get; set; }
 
         /// <summary>
+        ///     Indicates if the product is archived
+        /// </summary>
+        [DataMember]
+        public bool Archived { get; set; }
+
+        /// <summary>
         ///     The product friendly name
         /// </summary>
         [DataMember]

@@ -14,12 +14,12 @@
 //
 
 interface IProduct extends restangular.IElement {
-    active: boolean
+    archived: boolean
+    dateAdded: Date
     description: string
     id: number
     name: string
     quantityAvailable: number
-    dateAdded: Date
 }
 
 

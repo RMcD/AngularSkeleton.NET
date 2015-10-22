@@ -60,7 +60,7 @@ m.controller('app.login', ['$scope', 'security', 'repositories', 'services',
                 services.logger.success(`Logged in as: ${$scope.auth.username}`)
                 services.logger.debug(`Using token: ${data.access_token}`)
                 security.principal.authenticate({ name: $scope.auth.username, token: data.access_token, roles: ['user'] })
-                services.state.go('app.home', {})
+                services.state.go('app.catalog', {})
             }, response => {
                 services.logger.error('An error occurred authenticating', response.data)
                 $scope.submitted = false

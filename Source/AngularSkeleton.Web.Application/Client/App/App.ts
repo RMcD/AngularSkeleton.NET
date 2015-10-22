@@ -62,7 +62,7 @@ m.config([
     ) => {
 
         $locationProvider.html5Mode(false)
-        $urlRouterProvider.otherwise('/home')
+        $urlRouterProvider.otherwise('/catalog')
         laddaProvider.setOption({ style: 'expand-left' })
         restangularProvider.setBaseUrl(settings.apiBaseUri)
          

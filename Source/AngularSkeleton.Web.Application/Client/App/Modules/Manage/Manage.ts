@@ -26,7 +26,7 @@ var m = angular.module('app.manage', [
 m.config(['$urlRouterProvider', '$stateProvider',
     ($urlRouterProvider: ng.ui.IUrlRouterProvider, $stateProvider: ng.ui.IStateProvider) => {
 
-        $urlRouterProvider.when('/manage', '/manage/users')
+        $urlRouterProvider.when('/manage', '/manage/products')
 
         $stateProvider
             .state('app.manage', {

@@ -21,19 +21,17 @@ namespace AngularSkeleton.Domain.Catalog
         public Product(string name) : this()
         {
             Condition.Requires(name, "name").IsNotNullOrWhiteSpace().IsNotLongerThan(100);
-
             Name = name;
         }
 
         protected Product()
         {
-            Active = true;
         }
 
         /// <summary>
         ///     Indicates if the product is active
         /// </summary>
-        public bool Active { get; set; }
+        public bool Archived { get; set; }
 
         /// <summary>
         ///     The product description
