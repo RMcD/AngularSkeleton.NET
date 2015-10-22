@@ -78,7 +78,7 @@ namespace AngularSkeleton.Service.Impl
         {
             var found = await _repositories.Products.Search(options, criteria);
             var models = Mapper.Map<ICollection<ProductModel>>(found.Items);
-            return new PagedResult<ProductModel>(models);
+            return new PagedResult<ProductModel>(models, found.TotalRecords);
         }
     }
 }

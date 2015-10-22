@@ -48,6 +48,7 @@ declare module restangular {
             url: string;
             params: any;
         }
+        headers?: any;
     }
 
     interface IProvider {

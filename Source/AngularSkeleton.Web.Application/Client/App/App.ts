@@ -35,7 +35,8 @@ var m = angular.module('app', [
     'ui.bootstrap',
     'ui.router',
     'ui.select',
-    'uiSwitch'
+    'uiSwitch',
+    'cgBusy'
 ]) 
  
 
@@ -65,7 +66,7 @@ m.config([
         $urlRouterProvider.otherwise('/catalog')
         laddaProvider.setOption({ style: 'expand-left' })
         restangularProvider.setBaseUrl(settings.apiBaseUri)
-         
+        
         // security 
 
         $stateProvider.state('app', {

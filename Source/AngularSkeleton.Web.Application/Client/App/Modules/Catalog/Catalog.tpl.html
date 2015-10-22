@@ -14,7 +14,7 @@
     </div>
 
     <div class="search-text">
-        <strong>21</strong> results found for: <span class="text-primary">Lorem ipsum</span>
+        <span ng-show="submitted"><strong>{{ totalRecords }}</strong> results found for: <span class="text-primary">{{ criteria }}</span></span>
     </div>
 
     <!-- TABS -->
@@ -22,7 +22,7 @@
     <div class="search-tabs">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="#search-tabs-all" data-toggle="tab">All <span class="label label-primary">21</span></a>
+                <a href="#search-tabs-all" data-toggle="tab">All <span class="label label-primary">{{ totalRecords }}</span></a>
             </li>
         </ul>
     </div>
@@ -36,7 +36,7 @@
                 <span class="input-group-addon no-background"><i class="fa fa-search"></i></span>
                 <input type="text" name="s" class="form-control" ng-model="criteria" placeholder="Type your search here...">
                 <span class="input-group-btn">
-                    <button class="btn" type="submit" ng-click="load()">Search</button>
+                    <button class="btn" type="submit" ng-click="search()">Search</button>
                     <button class="btn" ng-click="clear()">Clear</button>
                 </span>
             </div>
@@ -44,7 +44,7 @@
 
         <!-- SEARCH RESULTS -->
 
-        <div class="panel-body tab-content">
+        <div class="panel-body tab-content" cg-busy="loading">
 
             <ul class="search-classic tab-pane fade in active" id="search-tabs-all">
                 <li data-ng-repeat="product in products">
@@ -63,16 +63,13 @@
 
         <!-- PAGING -->
 
+
         <div class="panel-footer">
-            <ul class="pagination">
-                <li class="disabled"><a href="#">«</a></li>
-                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
+            <pagination ng-model="currentPage"
+                        total-items="totalRecords"
+                        max-size="5"
+                        boundary-links="true">
+            </pagination>
         </div>
 
     </div>

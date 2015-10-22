@@ -21,6 +21,16 @@ interface IRepositories {
 
 
 // ****************************************************************************
+// Interface IPagedResult
+//
+
+interface IPagedResult<T> {
+    items: Array<T>
+    totalRecords: number
+}
+
+
+// ****************************************************************************
 // Module app.repositories
 //
 

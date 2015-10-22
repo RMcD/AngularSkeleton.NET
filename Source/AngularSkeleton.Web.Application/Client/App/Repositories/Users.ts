@@ -18,10 +18,10 @@ interface IUser extends restangular.IElement {
     archived?: boolean
     avatar: string
     email: string
+    isAdmin: boolean
     lastLogin: Date
     nameFirst: string
     nameLast: string
-    permission: string
     timezoneUtcOffset: number
     fullName(): string
 }

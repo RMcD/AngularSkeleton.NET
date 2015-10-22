@@ -203,7 +203,7 @@ m.controller('app.manage.users.add', ['$scope', 'repositories', 'services',
 
         services.logger.debug('Loaded controller app.manage.users.add')
 
-        $scope.user = <IUser>{ permission: 'User' }
+        $scope.user = <IUser>{ }
 
         $scope.save = (isValid: boolean) => {
 

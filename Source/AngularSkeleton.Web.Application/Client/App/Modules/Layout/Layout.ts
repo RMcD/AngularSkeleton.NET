@@ -66,6 +66,7 @@ m.controller('app.layout.sidebar', ['$scope', '$state', 'security', 'services', 
     services.profile.me().then(data => {
         $scope.avataruri = data.avatar
         $scope.firstname = data.nameFirst
+        $scope.isAdmin = data.isAdmin
     })
 
     services.logger.debug(`Current state is: ${$scope.$state.name}`)
