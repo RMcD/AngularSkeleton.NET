@@ -10,7 +10,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Permissions;
@@ -75,9 +74,7 @@ namespace AngularSkeleton.Web.Application.Controllers
             var options = new QueryOptions {Skip = skip, Take = take};
             var products = await Services.CatalogManagement.SearchProductsAsync(options, criteria);
 
-            var response = Request.CreateResponse(products.Items.ToList());
-            response.Headers.Add(Constants.ResponseHeaders.TotalCount, products.TotalRecords.ToString());
-            return response;
+            return Request.CreateResponse(products);
         }
 
         /// <summary>

@@ -10,10 +10,10 @@
 
 
 // ****************************************************************************
-// Interface AuthenticationToken
+// Interface IAuthenticationToken
 //
 
-interface IAuthenticationToken extends restangular.IElement {
+interface IAuthenticationToken {
     access_token: string
     token_type: string
     expires_in: number
@@ -37,20 +37,20 @@ var m = angular.module('app.repositories.authentication', ['restangular'])
 
 
 // ****************************************************************************
-// Authentication repository
+// Authentication service
 //
 
 m.factory('authentication', ['Restangular', (restangular: restangular.IService) => {
 
     function authenticate(username: string, password: string) {
-        var data = { grant_type: 'password', username: username, password: password }
-        return <angular.IPromise<IAuthenticationToken>> restangular.one('accesstoken').customPOST(
-            $.param(data), '', {},  {'Content-Type': 'application/x-www-form-urlencoded'})
+        const data = { grant_type: 'password', username: username, password: password }
+        return <angular.IPromise<IAuthenticationToken>>restangular.one('accesstoken').customPOST(
+            $.param(data), '', {}, { 'Content-Type': 'application/x-www-form-urlencoded' })
     }
 
     const repository: IAuthenticationRepository = {
         authenticate: authenticate
-    };
+    }
 
     return repository;
 }]) 

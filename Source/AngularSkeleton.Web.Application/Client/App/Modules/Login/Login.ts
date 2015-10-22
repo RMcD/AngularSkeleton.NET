@@ -57,10 +57,16 @@ m.controller('app.login', ['$scope', 'security', 'repositories', 'services',
             $scope.submitted = true // spinner
              
             repositories.authentication.authenticate($scope.auth.username, $scope.auth.password).then((data: IAuthenticationToken) => {
-                services.logger.success(`Logged in as: ${$scope.auth.username}`)
                 services.logger.debug(`Using token: ${data.access_token}`)
-                security.principal.authenticate({ name: $scope.auth.username, token: data.access_token, roles: ['user'] })
-                services.state.go('app.home', {})
+
+                services.profile.me().then((me) => {
+                    var roles = (me.isAdmin) ? ['user', 'admin'] : ['user']
+                    services.logger.debug(`Principal roles are: ${JSON.stringify(roles)}`)
+                    security.principal.authenticate({ name: $scope.auth.username, token: data.access_token, roles: roles })
+                    services.logger.success(`Logged in as: ${$scope.auth.username}`)
+                    services.state.go('app.catalog', {})
+                })
+
             }, response => {
                 services.logger.error('An error occurred authenticating', response.data)
                 $scope.submitted = false
