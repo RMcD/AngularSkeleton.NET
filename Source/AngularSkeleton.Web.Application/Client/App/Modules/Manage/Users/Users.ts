@@ -76,7 +76,10 @@ interface IUsersListScope extends ng.IScope {
     activeUsers: Array<IUser>
     archivedUsers: Array<IUser>
     calculateUsers(): void
+    currentActivePage: number
+    currentArchivedPage: number
     edit(user: IUser): void
+    itemsPerPage: number
     tab: string
     users: Array<IUser>
 }
@@ -86,6 +89,9 @@ m.controller('app.manage.users.list', ['$scope', 'repositories', 'users', 'servi
 
         services.logger.debug('Loaded controller app.manage.users.list')
 
+        $scope.currentActivePage = 1
+        $scope.currentArchivedPage = 1
+        $scope.itemsPerPage = 5
         $scope.users = users
         $scope.tab = 'active'
 
