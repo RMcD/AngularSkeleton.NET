@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Web.Http;
 using Swashbuckle.Application;
 
-namespace AngularSkeleton.WebApplication.Infrastructure.Config
+namespace AngularSkeleton.Web.Application.Infrastructure.Config
 {
     /// <summary>
     ///     Configures swashbuckle (swagger) settings.
@@ -20,28 +19,28 @@ namespace AngularSkeleton.WebApplication.Infrastructure.Config
             config
                 .EnableSwagger(c =>
                 {
+                    // core assembly comments
                     var baseDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\Bin";
-                    var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
-                    var commentsFile = Path.Combine(baseDirectory, commentsFileName);
+                    c.IncludeXmlComments(Path.Combine(baseDirectory, "AngularSkeleton.Web.Application.xml"));
+                    c.IncludeXmlComments(Path.Combine(baseDirectory, "AngularSkeleton.Service.Model.xml"));
 
-                    c.SingleApiVersion("v1", "Envoice API")
-                        .Description("A sample API for testing and prototyping Swashbuckle features")
+                    // models assembly comments
+
+                    c.SingleApiVersion("v1", "AngularSkeleton.NET")
+                        .Description("Angular skeleton application API")
                         .TermsOfService("Some terms")
                         .Contact(cc => cc
-                            .Name("Your name")
-                            .Url("http://www.yourdomain.com/contact")
-                            .Email("info@yourdomain.com"))
+                            .Name("Christopher Town")
+                            .Url("https://github.com/christophla/AngularSkeleton.NET"))
                         .License(lc => lc
                             .Name("License")
-                            .Url("http://www.yourdomain.com/license"));
-
-                    c.IncludeXmlComments(commentsFile);
+                            .Url("https://github.com/christophla/AngularSkeleton.NET/blob/master/LICENSE"));
 
                     c
                         .OAuth2("oauth2")
                         .Description("Resource owner password credentials grant")
                         .Flow("password")
-                        .AuthorizationUrl("http://localhost:32576/api/rest/v1/accesstoken");
+                        .AuthorizationUrl("http://localhost:54391/api/rest/v1/accesstoken");
                 })
                 .EnableSwaggerUi("api/rest/docs/{*assetPath}");
         }
