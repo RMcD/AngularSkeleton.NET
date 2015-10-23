@@ -8,6 +8,7 @@
 //=============================================================================
 
 using System.Threading.Tasks;
+using AngularSkeleton.Common.Exceptions;
 using AngularSkeleton.DataAccess.Repositories;
 using AngularSkeleton.Domain.Accounts;
 using CuttingEdge.Conditions;
@@ -35,6 +36,11 @@ namespace AngularSkeleton.Service.Impl
             await _repositories.SaveChangesAsync(); // update audit data
 
             return valid ? user : null;
+        }
+
+        public Task<bool> ResetPasswordAsync(long userId)
+        {
+            throw new BusinessException("Password reset is not currently supported");
         }
     }
 }

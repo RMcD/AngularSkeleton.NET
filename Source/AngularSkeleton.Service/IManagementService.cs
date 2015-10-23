@@ -61,12 +61,6 @@ namespace AngularSkeleton.Service
         Task<UserModel> GetUserAsync(long userId);
 
         /// <summary>
-        ///     Resets a user's password and sends an email with change token.
-        /// </summary>
-        /// <param name="userId">The userId</param>
-        Task<bool> ResetPasswordAsync(long userId);
-
-        /// <summary>
         ///     Toggles a user's active status
         /// </summary>
         /// <param name="userId">The user id</param>

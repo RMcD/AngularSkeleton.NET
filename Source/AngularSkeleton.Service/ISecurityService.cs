@@ -27,5 +27,11 @@ namespace AngularSkeleton.Service
         /// <param name="password">The password</param>
         /// <returns>The authenticated user</returns>
         Task<User> AuthorizeAsync(string username, string password);
+
+        /// <summary>
+        ///     Resets a user's password and sends an email with change token.
+        /// </summary>
+        /// <param name="userId">The userId</param>
+        Task<bool> ResetPasswordAsync(long userId);
     }
 }

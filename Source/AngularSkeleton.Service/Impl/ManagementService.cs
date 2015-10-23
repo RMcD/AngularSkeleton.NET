@@ -143,11 +143,6 @@ namespace AngularSkeleton.Service.Impl
             return Mapper.Map<User, UserModel>(user);
         }
 
-        public Task<bool> ResetPasswordAsync(long userId)
-        {
-            throw new NotImplementedException();
-        }
-
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<int> ToggleUserAsync(long userId)
         {
