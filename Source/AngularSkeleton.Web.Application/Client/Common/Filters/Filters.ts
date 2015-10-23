@@ -15,6 +15,14 @@
 
 var m = angular.module('common.filters', [])
 
+// ****************************************************************************
+// Filter that formats hours from decimal format to hh:mm
+//
+
+m.filter('offset', () => (input, start: string) => {
+    var result = parseInt(<any>start, 10)
+    return input.slice(result)
+}) 
 
 // ****************************************************************************
 // Filter that formats hours from decimal format to hh:mm

@@ -76,7 +76,10 @@ interface IProductsListScope extends ng.IScope {
     activeProducts: Array<IProduct>
     archivedProducts: Array<IProduct>
     calculateUsers(): void
+    currentActivePage: number
+    currentArchivedPage: number
     edit(user: IProduct): void
+    itemsPerPage: number
     products: Array<IProduct>
     tab: string
 }
@@ -86,6 +89,9 @@ m.controller('app.manage.products.list', ['$scope', 'repositories', 'products', 
 
         services.logger.debug('Loaded controller app.manage.users.list')
 
+        $scope.currentActivePage = 1
+        $scope.currentArchivedPage = 1
+        $scope.itemsPerPage = 5
         $scope.products = products
         $scope.tab = 'active'
 
