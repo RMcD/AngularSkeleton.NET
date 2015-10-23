@@ -42,7 +42,7 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
             }
         })
         .state('app.manage.products.edit', {
-            url: '/:userId',
+            url: '/:productId',
             views: {
                 'content@': {
                     templateUrl: `${settings.moduleBaseUri}/manage/products/products.edit.tpl.html`,
@@ -127,7 +127,7 @@ interface IProductsEditScope extends ng.IScope {
     submitting: boolean
 }
 
-m.controller('app.manage.users.edit', ['$scope', 'product', 'repositories', 'services',
+m.controller('app.manage.products.edit', ['$scope', 'product', 'repositories', 'services',
     ($scope: IProductsEditScope, product: IProduct, repositories: IRepositories, services: IServices) => {
 
         services.logger.debug('Loaded controller app.manage.users.edit')

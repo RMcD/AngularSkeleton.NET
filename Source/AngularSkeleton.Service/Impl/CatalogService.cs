@@ -8,14 +8,13 @@
 // THE SOFTWARE.
 //=============================================================================
 
-using System.Collections.Generic;
+using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
 using AngularSkeleton.Common;
 using AngularSkeleton.DataAccess.Repositories;
 using AngularSkeleton.DataAccess.Util;
-using AngularSkeleton.Service.Model.Products;
-using AutoMapper;
+using AngularSkeleton.Service.Model.Catalog;
 using CuttingEdge.Conditions;
 
 namespace AngularSkeleton.Service.Impl
@@ -31,11 +30,18 @@ namespace AngularSkeleton.Service.Impl
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
-        public async Task<PagedResult<ProductModel>> SearchAsync(QueryOptions options, string criteria = null)
+        public async Task<PagedResult<CatalogItemModel>> SearchAsync(QueryOptions options, string criteria = null)
         {
-            var found = await _repositories.Products.Search(options, criteria);
-            var models = Mapper.Map<ICollection<ProductModel>>(found.Items);
-            return new PagedResult<ProductModel>(models, found.TotalRecords);
+            var products = await _repositories.Products.Search(options, criteria);
+            var models = products.Items.Select(product => new CatalogItemModel
+            {
+                ProductId = product.Id,
+                DateAdded = product.CreatedAt,
+                Description = product.Description,
+                Name = product.Name,
+                QuantityAvailable = product.QuantityAvailable
+            });
+            return new PagedResult<CatalogItemModel>(models.ToList(), products.TotalRecords);
         }
     }
 }

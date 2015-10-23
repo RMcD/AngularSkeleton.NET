@@ -10,7 +10,7 @@
 
 using System.Threading.Tasks;
 using AngularSkeleton.DataAccess.Util;
-using AngularSkeleton.Service.Model.Products;
+using AngularSkeleton.Service.Model.Catalog;
 
 namespace AngularSkeleton.Service
 {
@@ -25,6 +25,6 @@ namespace AngularSkeleton.Service
         /// <param name="options">The query paging options</param>
         /// <param name="criteria">The optional search criteria</param>
         /// <returns>A paged result of products</returns>
-        Task<PagedResult<ProductModel>> SearchAsync(QueryOptions options, string criteria = null);
+        Task<PagedResult<CatalogItemModel>> SearchAsync(QueryOptions options, string criteria = null);
     }
 }

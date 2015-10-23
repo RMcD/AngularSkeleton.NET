@@ -47,9 +47,9 @@ interface ICatalogScope  extends angular.IScope {
     clear(): void
     criteria: string
     currentPage: number
+    items: Array<ICatalogItem>
     load(): void
     loading: ng.IPromise<any>
-    products: Array<IProduct>
     recordsPerPage: number
     search(): void
     skip: number
@@ -77,7 +77,7 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
 
         $scope.load = () => {
             $scope.loading = repositories.catalog.search($scope.criteria, ($scope.currentPage - 1) * $scope.recordsPerPage, $scope.recordsPerPage).then((result) => {
-                $scope.products = result.items
+                $scope.items = result.items
                 $scope.totalRecords = result.totalRecords
             })
         }

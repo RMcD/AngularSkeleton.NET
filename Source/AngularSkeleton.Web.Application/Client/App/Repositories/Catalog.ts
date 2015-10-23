@@ -9,13 +9,25 @@
 //=============================================================================
 
 
+// ****************************************************************************
+// Interface ICatalogItem
+//
+
+interface ICatalogItem extends restangular.IElement {
+    archived: boolean
+    dateAdded: Date
+    description: string
+    productId: number
+    name: string
+    quantityAvailable: number
+}
 
 // ****************************************************************************
 // Interface ICatalogRepository
 //
 
 interface ICatalogRepository {
-    search(criteria: string, skip: number, take: number): angular.IPromise<IPagedResult<IProduct>>
+    search(criteria: string, skip: number, take: number): angular.IPromise<IPagedResult<ICatalogItem>>
 }
 
 
@@ -33,12 +45,12 @@ var m = angular.module('app.repositories.catalog', ['restangular'])
 m.factory('catalog', ['Restangular', (restangular: restangular.IService) => {
 
     function search(criteria: string, skip: number, take: number) {
-        return <angular.IPromise<IPagedResult<IProduct>>>restangular.all('catalog').customGET('search', { criteria: criteria, skip: skip, take: take })
+        return <angular.IPromise<IPagedResult<ICatalogItem>>>restangular.all('catalog').customGET('search', { criteria: criteria, skip: skip, take: take })
     }
 
     var repository: ICatalogRepository = {
         search: search
-    }
+    } 
 
     return repository
 }]) 

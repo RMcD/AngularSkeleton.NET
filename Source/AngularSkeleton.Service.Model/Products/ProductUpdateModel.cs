@@ -8,28 +8,15 @@
 // THE SOFTWARE.
 //=============================================================================
 
-using System;
 using System.Runtime.Serialization;
 
 namespace AngularSkeleton.Service.Model.Products
 {
     /// <summary>
-    ///     Models a product
+    ///     Model for updating a product
     /// </summary>
-    public class ProductModel : ModelBase
+    public class ProductUpdateModel : ModelBase
     {
-        /// <summary>
-        ///     The product id
-        /// </summary>
-        [DataMember]
-        public long Id { get; set; }
-
-        /// <summary>
-        ///     Indicates if the product is archived
-        /// </summary>
-        [DataMember]
-        public bool Archived { get; set; }
-
         /// <summary>
         ///     The product friendly name
         /// </summary>
@@ -47,11 +34,5 @@ namespace AngularSkeleton.Service.Model.Products
         /// </summary>
         [DataMember]
         public int QuantityAvailable { get; set; }
-
-        /// <summary>
-        ///     The date the product was added
-        /// </summary>
-        [DataMember]
-        public DateTimeOffset DateAdded { get; set; }
     }
 }

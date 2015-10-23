@@ -140,5 +140,27 @@ namespace AngularSkeleton.Web.Application.Controllers.Manage
             await Services.Management.ToggleProductAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        /// <summary>
+        ///     Update product
+        /// </summary>
+        /// <remarks>Updates a single user, specified by the id parameter.</remarks>
+        /// <param name="model">The user data</param>
+        /// <param name="id">The id</param>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Credentials were not provided</response>
+        /// <response code="403">Access was denied to the resource</response>
+        /// <response code="404">A user was not found with given id</response>
+        /// <response code="500">An unknown error occurred</response>
+        [Route("products/{id:long}")]
+        [AcceptVerbs("PUT")]
+        [CheckModelForNull]
+        [ValidateModel]
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
+        public async Task<HttpResponseMessage> UpdateAsync(ProductUpdateModel model, long id)
+        {
+            await Services.Management.UpdateProductAsync(model, id);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

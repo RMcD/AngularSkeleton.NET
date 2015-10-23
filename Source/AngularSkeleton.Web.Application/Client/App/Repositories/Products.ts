@@ -23,7 +23,6 @@ interface IProduct extends restangular.IElement {
 }
 
 
-
 // ****************************************************************************
 // Interface IProductsRepository
 //

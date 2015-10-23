@@ -1,7 +1,7 @@
 ﻿<!-- skip: users.list -->
 
 <ul class="breadcrumb breadcrumb-page">
-    <li><i class="fa fa-home"></i><a data-ui-sref="app.home">Home</a></li>
+    <li><i class="fa fa-dashboard"></i><a data-ui-sref="app.dashboard">Dashboard</a></li>
     <li><a data-ui-sref="app.manage">Manage</a></li>
     <li class="active">Products</li>
 </ul>
@@ -41,7 +41,7 @@
                             <tbody>
                             <tr data-ng-repeat="product in activeProducts | offset: currentActivePage*itemsPerPage | limitTo: itemsPerPage" data-ng-class="{first : $first}">
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm btn-outline btn-rounded btn-labeled" data-ng-click="edit(user)">
+                                    <button type="button" class="btn btn-primary btn-sm btn-outline btn-rounded btn-labeled" data-ng-click="edit(product)">
                                         <span class="btn-label icon fa fa-pencil-square-o"></span> Edit
                                     </button> &nbsp;&nbsp;
                                     <span class="name" data-ng-bind="product.name"></span>

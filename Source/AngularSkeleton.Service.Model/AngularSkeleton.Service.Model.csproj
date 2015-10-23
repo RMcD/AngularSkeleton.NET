@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\CatalogItemModel.cs" />
+    <Compile Include="Products\ProductUpdateModel.cs" />
     <Compile Include="Users\UserAddModel.cs" />
     <Compile Include="Users\UserModel.cs" />
     <Compile Include="Authentication\LoginRequestModel.cs" />

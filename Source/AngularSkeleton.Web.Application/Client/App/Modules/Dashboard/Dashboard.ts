@@ -13,7 +13,7 @@
 // Module app.home
 //
  
-var m = angular.module('app.home', [])
+var m = angular.module('app.dashboard', [])
  
 
 // ****************************************************************************
@@ -23,16 +23,16 @@ var m = angular.module('app.home', [])
 m.config(['$stateProvider', 'settings', ($stateProvider: ng.ui.IStateProvider, settings: ISystemSettings) => {
 
     $stateProvider
-        .state('app.home', {
-            url: '/home',
+        .state('app.dashboard', {
+            url: '/dashboard',
             data: {
                 roles: ['user']
             },
-            controller: 'app.home',
+            controller: 'app.dashboard',
             views: {
                 'content@': {
-                    templateUrl: `${settings.moduleBaseUri}/home/home.tpl.html`,
-                    controller: 'app.home'
+                    templateUrl: `${settings.moduleBaseUri}/dashboard/dashboard.tpl.html`,
+                    controller: 'app.dashboard'
                 }
             },
             resolve: {
@@ -43,15 +43,15 @@ m.config(['$stateProvider', 'settings', ($stateProvider: ng.ui.IStateProvider, s
 
 
 // ****************************************************************************
-// Controller app.home
+// Controller app.dashboard
 //
 
-interface IHomeScope {
+interface IDashboardScope {
     fullName: string
 }
 
-m.controller('app.home', ['$scope', 'me', 'repositories', 'services',
-    ($scope: IHomeScope, me: IUser, repositories: IRepositories, services: IServices) => {
+m.controller('app.dashboard', ['$scope', 'me', 'repositories', 'services',
+    ($scope: IDashboardScope, me: IUser, repositories: IRepositories, services: IServices) => {
 
         services.logger.debug('Loaded controller app.home')
         

@@ -38,8 +38,8 @@ namespace AngularSkeleton.Web.Application.Controllers.Catalog
         public async Task<HttpResponseMessage> SearchAsync(string criteria = null, int skip = 0, int take = 10)
         {
             var options = new QueryOptions {Skip = skip, Take = take};
-            var products = await Services.Catalog.SearchAsync(options, criteria);
-            return Request.CreateResponse(products);
+            var items = await Services.Catalog.SearchAsync(options, criteria);
+            return Request.CreateResponse(items);
         }
     }
 }

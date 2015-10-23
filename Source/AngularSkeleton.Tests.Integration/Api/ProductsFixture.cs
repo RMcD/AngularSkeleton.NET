@@ -186,5 +186,37 @@ namespace AngularSkeleton.Tests.Integration.Api
             "And a 200 OK status is returned".
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
         }
+
+        /// <summary>
+        ///     PUT /management/products/{id}
+        /// </summary>
+        [Scenario]
+        public void UpdatingAProduct(ProductModel user, long productId)
+        {
+            "Given an existing user".
+                f(() => ManagementServiceMock.Setup(m => m.UpdateProductAsync(It.IsAny<ProductUpdateModel>(), productId)).ReturnsAsync(1));
+
+            "When a PUT request is made".
+                f(() =>
+                {
+                    dynamic dto = JObject.FromObject(new
+                    {
+                        description = "TEST_DESCRIPTION",
+                        name = "TEST_NAME",
+                        quantityAvailable = 99,
+                    });
+
+                    Request.Method = HttpMethod.Put;
+                    Request.RequestUri = new Uri(string.Format("{0}/{1}", ProductsUrl, productId));
+                    Request.Content = new ObjectContent<dynamic>(dto, new JsonMediaTypeFormatter());
+                    Response = Client.SendAsync(Request).Result;
+                });
+
+            "Then a '200 OK' status is returned".
+                f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
+
+            "And the user should be updated".
+                f(() => ManagementServiceMock.Verify(m => m.UpdateProductAsync(It.IsAny<ProductUpdateModel>(), productId), Times.Once()));
+        }
     }
 }

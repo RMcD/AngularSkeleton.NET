@@ -160,6 +160,17 @@ namespace AngularSkeleton.Service.Impl
             return await _repositories.SaveChangesAsync();
         }
 
+        public async Task<int> UpdateProductAsync(ProductUpdateModel model, long productId)
+        {
+            var product = await _repositories.Products.FindAsync(productId);
+
+            product.Description = model.Description;
+            product.Name = model.Name;
+            product.QuantityAvailable = model.QuantityAvailable;
+            
+            return await _repositories.SaveChangesAsync();
+        }
+
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<int> UpdateUserAsync(UserUpdateModel model, long userId)
         {

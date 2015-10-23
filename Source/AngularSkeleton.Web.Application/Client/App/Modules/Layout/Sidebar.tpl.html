@@ -1,10 +1,11 @@
 ﻿
-<!-- skip: sidebar-controller -->
+<!-- start: app.layout.sidebar -->
 
 <div id="main-menu">
     <div id="main-menu-inner">
-        
+
         <!-- MENU TOP -->
+
         <div class="menu-content top text-center" style="white-space: nowrap;">
             <div class="text-bg form-group-margin" style="color: #fff">
                 <span class="text-slim">Welcome,</span> <span class="text-semibold">{{ firstname }}</span>
@@ -17,9 +18,10 @@
         </div>
 
         <!-- MENU -->
+
         <ul class="navigation">
-            <li ui-sref-active="active"> <a ui-sref="app.home"><i class="menu-icon fa fa-user"></i><span class="mm-text">Welcome</span></a> </li>
-            <li ui-sref-active="active"> <a ui-sref="app.catalog"><i class="menu-icon fa fa-user"></i><span class="mm-text">Catalog</span></a> </li>
+            <li ui-sref-active="active"> <a ui-sref="app.dashboard"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text">Dashboard</span></a> </li>
+            <li ui-sref-active="active"> <a ui-sref="app.catalog"><i class="menu-icon fa fa-sitemap"></i><span class="mm-text">Catalog</span></a> </li>
             <li class="mm-dropdown mm-dropdown-root" ui-sref-active="open" ng-show="isAdmin">
                 <a href="" ui-sref="app.manage"><i class="menu-icon fa fa-cogs"></i><span class="mm-text">Manage</span></a>
                 <ul>
@@ -30,6 +32,7 @@
         </ul>
 
         <!-- HELP LINK -->
+
         <div class="menu-content animated fadeIn">
             <a href="/api/rest/docs/index" target="_blank" class="btn btn-primary btn-block btn-outline dark">Help</a>
         </div>
@@ -37,4 +40,4 @@
     </div>
 </div>
 
-<!-- end: sidebar-controller -->
+<!-- end: app.layout.sidebar -->

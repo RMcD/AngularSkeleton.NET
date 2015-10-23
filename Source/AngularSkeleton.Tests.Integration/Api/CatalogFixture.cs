@@ -15,6 +15,7 @@ using System.Net;
 using System.Net.Http;
 using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Service;
+using AngularSkeleton.Service.Model.Catalog;
 using AngularSkeleton.Service.Model.Products;
 using Moq;
 using Shouldly;
@@ -39,26 +40,26 @@ namespace AngularSkeleton.Tests.Integration.Api
         ///     GET /catalog/search?criteria={0}
         /// </summary>
         [Scenario]
-        public void RetrievingAllProducts(ICollection<ProductModel> products, PagedResult<ProductModel> productsResult)
+        public void SearchingCatalog(ICollection<CatalogItemModel> products, PagedResult<CatalogItemModel> productsResult)
         {
             "Given existing catalog items".
                 f(() =>
                 {
-                    products = new List<ProductModel>
+                    products = new List<CatalogItemModel>
                     {
-                        new ProductModel {Id = 1},
-                        new ProductModel {Id = 2},
-                        new ProductModel {Id = 3}
+                        new CatalogItemModel {ProductId = 1},
+                        new CatalogItemModel {ProductId = 2},
+                        new CatalogItemModel {ProductId = 3}
                     };
                 });
 
             "When they are retrieved".
                 f(async () =>
                 {
-                    CatalogServiceMock.Setup(m => m.SearchAsync(It.IsAny<QueryOptions>(), "test")).ReturnsAsync(new PagedResult<ProductModel>(products));
+                    CatalogServiceMock.Setup(m => m.SearchAsync(It.IsAny<QueryOptions>(), "test")).ReturnsAsync(new PagedResult<CatalogItemModel>(products));
                     Request.RequestUri = new Uri(string.Format("{0}?criteria={1}", CatalogSearchUrl, "test"));
                     Response = await Client.SendAsync(Request);
-                    productsResult = await Response.Content.ReadAsAsync<PagedResult<ProductModel>>();
+                    productsResult = await Response.Content.ReadAsAsync<PagedResult<CatalogItemModel>>();
                 });
 
             "Then a '200 OK' status is returned".

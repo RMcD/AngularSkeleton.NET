@@ -73,6 +73,13 @@ namespace AngularSkeleton.Service
         Task<int> ToggleUserAsync(long userId);
 
         /// <summary>
+        ///     Updates a product
+        /// </summary>
+        /// <param name="model">The product model</param>
+        /// <param name="productId">The product id</param>
+        Task<int> UpdateProductAsync(ProductUpdateModel model, long productId);
+
+        /// <summary>
         ///     Updates a user
         /// </summary>
         /// <param name="model">The user model</param>
