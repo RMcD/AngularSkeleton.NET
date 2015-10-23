@@ -20,11 +20,17 @@ namespace AngularSkeleton.Service
     public interface ICatalogService
     {
         /// <summary>
+        ///     Retrieves a single entry
+        /// </summary>
+        /// <param name="productId">The product id</param>
+        Task<CatalogEntryModel> GetEntryByProductIdAsync(long productId);
+
+        /// <summary>
         ///     Searches the catalog
         /// </summary>
         /// <param name="options">The query paging options</param>
         /// <param name="criteria">The optional search criteria</param>
         /// <returns>A paged result of products</returns>
-        Task<PagedResult<CatalogItemModel>> SearchAsync(QueryOptions options, string criteria = null);
+        Task<PagedResult<CatalogEntryModel>> SearchAsync(QueryOptions options, string criteria = null);
     }
 }

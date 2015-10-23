@@ -33,7 +33,7 @@ m.config(['$urlRouterProvider', '$stateProvider',
                 abstract: false,
                 url: '/manage',
                 data: {
-                    roles: ['user']
+                    roles: ['admin']
                 }
             })
     }

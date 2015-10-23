@@ -16,7 +16,7 @@ namespace AngularSkeleton.Service.Model.Catalog
     /// <summary>
     ///     Models a catalog item
     /// </summary>
-    public class CatalogItemModel : ModelBase
+    public class CatalogEntryModel : ModelBase
     {
         /// <summary>
         ///     The product id

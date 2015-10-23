@@ -12,6 +12,7 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
 using AngularSkeleton.Common;
+using AngularSkeleton.Common.Exceptions;
 using AngularSkeleton.DataAccess.Repositories;
 using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Service.Model.Catalog;
@@ -30,10 +31,27 @@ namespace AngularSkeleton.Service.Impl
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
-        public async Task<PagedResult<CatalogItemModel>> SearchAsync(QueryOptions options, string criteria = null)
+        public async Task<CatalogEntryModel> GetEntryByProductIdAsync(long productId)
+        {
+            var product = await _repositories.Products.FindAsync(productId);
+            if (null == product)
+                throw new NotFoundException("The product with id {0} was not found", productId);
+
+            return new CatalogEntryModel
+            {
+                ProductId = product.Id,
+                DateAdded = product.CreatedAt,
+                Description = product.Description,
+                Name = product.Name,
+                QuantityAvailable = product.QuantityAvailable
+            };
+        }
+
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
+        public async Task<PagedResult<CatalogEntryModel>> SearchAsync(QueryOptions options, string criteria = null)
         {
             var products = await _repositories.Products.Search(options, criteria);
-            var models = products.Items.Select(product => new CatalogItemModel
+            var models = products.Items.Select(product => new CatalogEntryModel
             {
                 ProductId = product.Id,
                 DateAdded = product.CreatedAt,
@@ -41,7 +59,7 @@ namespace AngularSkeleton.Service.Impl
                 Name = product.Name,
                 QuantityAvailable = product.QuantityAvailable
             });
-            return new PagedResult<CatalogItemModel>(models.ToList(), products.TotalRecords);
+            return new PagedResult<CatalogEntryModel>(models.ToList(), products.TotalRecords);
         }
     }
 }

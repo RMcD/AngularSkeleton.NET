@@ -49,7 +49,7 @@
 
             <ul class="search-classic tab-pane fade in active" id="search-tabs-all">
                 <li data-ng-repeat="item in items">
-                    <a href="#" class="search-title">{{ item.name }}</a>
+                    <a href="#" ng-click="view(item)" class="search-title">{{ item.name }}</a>
                     <div class="search-content"> {{ item.description }}</div>
                     <div class="search-tags">
                         <span class="search-tags-text">Tags:</span>

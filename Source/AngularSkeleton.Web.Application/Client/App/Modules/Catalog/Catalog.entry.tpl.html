@@ -1,0 +1,33 @@
+﻿
+<!-- start: app.catalog.entry -->
+
+<ul class="breadcrumb breadcrumb-page">
+    <li><i class="fa fa-dashboard"></i><a data-ui-sref="app.dashboard">Dashboard</a></li>
+    <li><a data-ui-sref="app.catalog">Catalog</a></li>
+    <li class="active"><a>Entry</a></li>
+</ul>
+
+<div class="page-header">
+    <h1 class="anim-slide-left anim-fade"> <a data-ui-sref="app.manage.users" class="hidden-xs">Catalog</a> <i class="fa fa-angle-double-right hidden-xs"></i> View Entry
+    </h1>
+</div>
+
+
+<div class="panel panel-danger panel-dark panel-body-colorful widget-profile widget-profile-centered">
+    <div class="panel-heading">
+        <div class="widget-profile-header">
+            <span>{{ entry.name }}</span><br>
+            {{ entry.quantityAvailable }} Available
+        </div>
+    </div> 
+    <div class="panel-body">
+        <div class="widget-profile-text" style="padding: 0;"> {{ entry.description }} </div>
+        <br/>
+    </div>
+    <div class="panel-footer">
+        <a class="btn" data-ui-sref="app.catalog">Back to Catalog</a>
+    </div>
+
+</div>
+
+<!-- end: app.catalog.entry -->

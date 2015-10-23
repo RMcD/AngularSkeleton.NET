@@ -40,26 +40,26 @@ namespace AngularSkeleton.Tests.Integration.Api
         ///     GET /catalog/search?criteria={0}
         /// </summary>
         [Scenario]
-        public void SearchingCatalog(ICollection<CatalogItemModel> products, PagedResult<CatalogItemModel> productsResult)
+        public void SearchingCatalog(ICollection<CatalogEntryModel> products, PagedResult<CatalogEntryModel> productsResult)
         {
             "Given existing catalog items".
                 f(() =>
                 {
-                    products = new List<CatalogItemModel>
+                    products = new List<CatalogEntryModel>
                     {
-                        new CatalogItemModel {ProductId = 1},
-                        new CatalogItemModel {ProductId = 2},
-                        new CatalogItemModel {ProductId = 3}
+                        new CatalogEntryModel {ProductId = 1},
+                        new CatalogEntryModel {ProductId = 2},
+                        new CatalogEntryModel {ProductId = 3}
                     };
                 });
 
             "When they are retrieved".
                 f(async () =>
                 {
-                    CatalogServiceMock.Setup(m => m.SearchAsync(It.IsAny<QueryOptions>(), "test")).ReturnsAsync(new PagedResult<CatalogItemModel>(products));
+                    CatalogServiceMock.Setup(m => m.SearchAsync(It.IsAny<QueryOptions>(), "test")).ReturnsAsync(new PagedResult<CatalogEntryModel>(products));
                     Request.RequestUri = new Uri(string.Format("{0}?criteria={1}", CatalogSearchUrl, "test"));
                     Response = await Client.SendAsync(Request);
-                    productsResult = await Response.Content.ReadAsAsync<PagedResult<CatalogItemModel>>();
+                    productsResult = await Response.Content.ReadAsAsync<PagedResult<CatalogEntryModel>>();
                 });
 
             "Then a '200 OK' status is returned".

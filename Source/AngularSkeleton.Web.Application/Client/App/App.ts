@@ -21,6 +21,7 @@ var m = angular.module('app', [
     'common.security',
     'app.repositories',
     'app.services',
+    'app.errors',
     'app.layout',
     'app.login',
     'app.dashboard',

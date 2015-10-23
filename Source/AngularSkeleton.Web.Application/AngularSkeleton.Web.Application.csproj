@@ -168,7 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\App\Modules\Catalog\Catalog.tpl.html" />
+    <Content Include="Client\App\Modules\Catalog\Catalog.entry.tpl.html" />
     <Content Include="Client\App\Modules\Dashboard\Dashboard.tpl.html" />
+    <Content Include="Client\App\Modules\Errors\AccessDenied.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Footer.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Navbar.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Sidebar.tpl.html" />
@@ -284,6 +286,7 @@
     <TypeScriptCompile Include="Client\App\Constants.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Catalog\Catalog.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Dashboard\Dashboard.ts" />
+    <TypeScriptCompile Include="Client\App\Modules\Errors\Errors.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Layout\Layout.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Login\Login.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Manage.ts" />

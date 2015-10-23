@@ -36,6 +36,18 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
                 }
             }
         })
+        .state('app.catalog.entry', {
+            url: '/:productId',
+            views: {
+                'content@': {
+                    templateUrl: `${settings.moduleBaseUri}/catalog/catalog.entry.tpl.html`,
+                    controller: 'app.catalog.entry'
+                }
+            },
+            resolve: {
+                entry: ['repositories', '$stateParams', (repositories: IRepositories, $stateParams: ng.ui.IStateParamsService) => repositories.catalog.entry($stateParams['productId'])]
+            }
+        })
 }])
 
 
@@ -43,11 +55,11 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
 // Controller app.catalog
 //
 
-interface ICatalogScope  extends angular.IScope {
+interface ICatalogScope extends angular.IScope {
     clear(): void
     criteria: string
     currentPage: number
-    items: Array<ICatalogItem>
+    items: Array<ICatalogEntry>
     load(): void
     loading: ng.IPromise<any>
     recordsPerPage: number
@@ -55,6 +67,7 @@ interface ICatalogScope  extends angular.IScope {
     skip: number
     submitted: boolean
     totalRecords: number
+    view(item: ICatalogEntry): void
 }
 
 m.controller('app.catalog', ['$scope', 'repositories', 'services',
@@ -89,8 +102,31 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
 
         $scope.$watch('currentPage', () => {
             $scope.load()
-        });
+        })
+
+        $scope.view = item => {
+            services.state.go('app.catalog.entry', { productId: item.productId })
+        }
 
         $scope.load()
+    }
+]) 
+
+
+
+// ****************************************************************************
+// Controller app.catalog.entry
+//
+
+interface ICatalogEntryScope extends ng.IScope {
+    entry: ICatalogEntry
+}
+
+m.controller('app.catalog.entry', ['$scope', 'entry', 'repositories', 'services',
+    ($scope: ICatalogEntryScope, entry: ICatalogEntry, repositories: IRepositories, services: IServices) => {
+
+        services.logger.debug('Loaded controller app.catalog.entry')
+
+        $scope.entry = entry
     }
 ]) 
