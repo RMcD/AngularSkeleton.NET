@@ -61,7 +61,13 @@ namespace AngularSkeleton.Service
         Task<UserModel> GetUserAsync(long userId);
 
         /// <summary>
-        ///     Toggles a user's active status
+        ///     Toggles a product's archive status
+        /// </summary>
+        /// <param name="productId">The product id</param>
+        Task<int> ToggleProductAsync(long productId);
+
+        /// <summary>
+        ///     Toggles a user's archive status
         /// </summary>
         /// <param name="userId">The user id</param>
         Task<int> ToggleUserAsync(long userId);

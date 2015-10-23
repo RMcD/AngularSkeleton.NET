@@ -7,7 +7,6 @@
 // THE SOFTWARE.
 //=============================================================================
 
-using System;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
@@ -141,6 +140,15 @@ namespace AngularSkeleton.Service.Impl
                 throw new NotFoundException("The user was not found");
 
             return Mapper.Map<User, UserModel>(user);
+        }
+
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
+        public async Task<int> ToggleProductAsync(long productId)
+        {
+            var product = await _repositories.Products.FindAsync(productId);
+            product.Archived = !product.Archived;
+
+            return await _repositories.SaveChangesAsync();
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]

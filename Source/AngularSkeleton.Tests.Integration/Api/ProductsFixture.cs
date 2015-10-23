@@ -160,5 +160,31 @@ namespace AngularSkeleton.Tests.Integration.Api
             "And it should have an id".
                 f(() => product.Id.ShouldBe(productId));
         }
+
+        /// <summary>
+        ///     GET /management/products/{productId}/toggle
+        /// </summary>
+        [Scenario]
+        [Example(1)]
+        public void TogglingAProduct(long productId)
+        {
+            "Given an existing task".
+                f(() => ManagementServiceMock.Setup(m => m.ToggleProductAsync(productId)).ReturnsAsync(1));
+
+            "When a POST request is made".
+                f(() =>
+                {
+                    Request.Method = HttpMethod.Post;
+                    Request.RequestUri = new Uri(string.Format("{0}/{1}/toggle", ProductsUrl, productId));
+                    Request.Content = new ObjectContent<dynamic>(new JObject(), new JsonMediaTypeFormatter());
+                    Response = Client.SendAsync(Request).Result;
+                });
+
+            "Then the task should be deactivated".
+                f(() => ManagementServiceMock.Verify(m => m.ToggleProductAsync(productId), Times.Once()));
+
+            "And a 200 OK status is returned".
+                f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
+        }
     }
 }

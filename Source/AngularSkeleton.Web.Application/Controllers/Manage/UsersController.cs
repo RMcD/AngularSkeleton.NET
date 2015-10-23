@@ -58,7 +58,6 @@ namespace AngularSkeleton.Web.Application.Controllers.Manage
         public async Task<HttpResponseMessage> CreateAsync(UserAddModel model)
         {
             var user = await Services.Management.CreateUserAsync(model);
-
             var response = Request.CreateResponse(HttpStatusCode.Created);
             var uri = Url.Link(RetrieveUserRoute, new {id = user.Id});
             response.Headers.Location = new Uri(uri);
@@ -98,7 +97,6 @@ namespace AngularSkeleton.Web.Application.Controllers.Manage
         public async Task<HttpResponseMessage> GetAllAsync()
         {
             var users = await Services.Management.GetAllUsersAsync();
-
             var models = users as IList<UserModel> ?? users.ToList();
             var response = Request.CreateResponse(models);
             response.Headers.Add(Constants.ResponseHeaders.TotalCount, models.Count().ToString());
@@ -156,7 +154,7 @@ namespace AngularSkeleton.Web.Application.Controllers.Manage
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> ResetPassword(long id)
         {
-            await Services.Management.ResetPasswordAsync(id);
+            await Services.Security.ResetPasswordAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
