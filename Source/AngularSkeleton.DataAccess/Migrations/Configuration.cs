@@ -31,7 +31,7 @@ namespace AngularSkeleton.DataAccess.Migrations
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         internal static string DefaultAdminUsername = "administrator";
         internal static string DefaultPassword = "password";
-        internal static string DefaultUserUsername = "user";
+        internal static string DefaultUserUsername = "testuser";
         internal static string DefaultEmail = "test@superexpert.com";
 
         public Configuration()
