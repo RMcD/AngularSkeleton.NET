@@ -26,7 +26,10 @@ namespace AngularSkeleton.DataAccess.Util
         /// <summary>
         ///     Returns all items.
         /// </summary>
-        public static QueryOptions AllItems => new QueryOptions {RetrieveAll = true};
+        public static QueryOptions AllItems
+        {
+            get { return new QueryOptions {RetrieveAll = true}; }
+        }
 
         public int Skip { get; set; }
 

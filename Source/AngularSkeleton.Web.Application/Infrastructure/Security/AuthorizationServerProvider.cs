@@ -32,7 +32,7 @@ namespace AngularSkeleton.Web.Application.Infrastructure.Security
                 var scope = context.OwinContext.GetAutofacLifetimeScope();
                 var services = scope.Resolve<IServiceFacade>();
 
-                var user = await services.AccountManagement.AuthorizeAsync(context.UserName, context.Password);
+                var user = await services.Security.AuthorizeAsync(context.UserName, context.Password);
                 if (null == user)
                     throw new Exception("The user name or password is incorrect.");
 

@@ -1,5 +1,4 @@
-﻿//=============================================================================
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+﻿// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
 // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -8,26 +7,25 @@
 // THE SOFTWARE.
 //=============================================================================
 
+using System.Threading.Tasks;
+using AngularSkeleton.Domain.Accounts;
+
 namespace AngularSkeleton.Service
 {
     /// <summary>
-    ///     Facade for accessing services
+    ///     Provides authentication services
     /// </summary>
-    public interface IServiceFacade
+    public interface ISecurityService
     {
         /// <summary>
-        ///     The product catalog management service
+        ///     Authorizes user credentials
         /// </summary>
-        ICatalogService Catalog { get; set; }
-
-        /// <summary>
-        ///     The system management service
-        /// </summary>
-        IManagementService Management { get; set; }
-
-        /// <summary>
-        ///     The security service
-        /// </summary>
-        ISecurityService Security { get; set; }
+        /// <remarks>
+        ///     Returns null if invalid
+        /// </remarks>
+        /// <param name="username">The username</param>
+        /// <param name="password">The password</param>
+        /// <returns>The authenticated user</returns>
+        Task<User> AuthorizeAsync(string username, string password);
     }
 }

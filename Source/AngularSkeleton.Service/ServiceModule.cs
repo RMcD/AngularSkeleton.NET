@@ -16,7 +16,7 @@ using Autofac;
 namespace AngularSkeleton.Service
 {
     /// <summary>
-    /// Module for the services library
+    ///     Module for the services library
     /// </summary>
     public class ServiceModule : Module
     {
@@ -33,8 +33,9 @@ namespace AngularSkeleton.Service
             builder.RegisterModule(new DataAccessModule());
 
             // Types
-            builder.RegisterType<AccountService>().As<IAccountService>().InstancePerRequest();
             builder.RegisterType<CatalogService>().As<ICatalogService>().InstancePerRequest();
+            builder.RegisterType<ManagementService>().As<IManagementService>().InstancePerRequest();
+            builder.RegisterType<SecurityService>().As<ISecurityService>().InstancePerRequest();
 
             // Service Facade
             if (null == _serviceFacade)

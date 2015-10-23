@@ -1,49 +1,45 @@
-﻿//=============================================================================
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//=============================================================================
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AngularSkeleton.Domain.Accounts;
+using AngularSkeleton.Service.Model.Products;
 using AngularSkeleton.Service.Model.Users;
 
 namespace AngularSkeleton.Service
 {
     /// <summary>
-    ///     Service for accessing the product catalog
+    ///     Service for managing the system
     /// </summary>
-    public interface IAccountService
+    public interface IManagementService
     {
         /// <summary>
-        ///     Authorizes a user credentials
+        ///     Creates a product
         /// </summary>
-        /// <remarks>
-        ///     Returns null if invalid
-        /// </remarks>
-        /// <param name="username">The username</param>
-        /// <param name="password">The password</param>
-        /// <returns>The authenticated user</returns>
-        Task<User> AuthorizeAsync(string username, string password);
+        /// <param name="model">The client model</param>
+        Task<ProductModel> CreateProductAsync(ProductAddModel model);
 
         /// <summary>
-        ///     Creates a new user.
+        ///     Creates a new user
         /// </summary>
         Task<UserModel> CreateUserAsync(UserAddModel model);
 
         /// <summary>
-        ///     Removes a user.
+        ///     Deletes a product
+        /// </summary>
+        /// <param name="productId">The product id</param>
+        Task<int> DeleteProductAsync(long productId);
+
+        /// <summary>
+        ///     Removes a user
         /// </summary>
         /// <param name="userId">The user id</param>
         Task<int> DeleteUserAsync(long userId);
 
         /// <summary>
-        ///     Returns a collection of all users.
+        ///     Returns a collection of all products
+        /// </summary>
+        Task<IEnumerable<ProductModel>> GetAllProductsAsync();
+
+        /// <summary>
+        ///     Returns a collection of all users
         /// </summary>
         Task<IEnumerable<UserModel>> GetAllUsersAsync();
 
@@ -53,7 +49,13 @@ namespace AngularSkeleton.Service
         Task<UserModel> GetCurrentUserAsync();
 
         /// <summary>
-        ///     Returns a user with given id.
+        ///     Retrieves a single product
+        /// </summary>
+        /// <param name="productId">The product id</param>
+        Task<ProductModel> GetProductAsync(long productId);
+
+        /// <summary>
+        ///     Returns a user with given id
         /// </summary>
         /// <param name="userId">The user id</param>
         Task<UserModel> GetUserAsync(long userId);
@@ -65,13 +67,13 @@ namespace AngularSkeleton.Service
         Task<bool> ResetPasswordAsync(long userId);
 
         /// <summary>
-        ///     Toggles a user's active status.
+        ///     Toggles a user's active status
         /// </summary>
         /// <param name="userId">The user id</param>
         Task<int> ToggleUserAsync(long userId);
 
         /// <summary>
-        ///     Updates a user.
+        ///     Updates a user
         /// </summary>
         /// <param name="model">The user model</param>
         /// <param name="userId">The user id</param>

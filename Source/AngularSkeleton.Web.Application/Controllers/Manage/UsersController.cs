@@ -22,12 +22,12 @@ using AngularSkeleton.Service;
 using AngularSkeleton.Service.Model.Users;
 using AngularSkeleton.Web.Application.Infrastructure.Attributes;
 
-namespace AngularSkeleton.Web.Application.Controllers
+namespace AngularSkeleton.Web.Application.Controllers.Manage
 {
     /// <summary>
     ///     Controller for accessing users
     /// </summary>
-    [RoutePrefix(Constants.Api.Version.RestV1RoutePrefix)]
+    [RoutePrefix(Constants.Api.Version.RestV1ManageRoutePrefix)]
     public class UsersController : ControllerBase
     {
         private const string RetrieveUserRoute = "GetUserById";
@@ -57,7 +57,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> CreateAsync(UserAddModel model)
         {
-            var user = await Services.AccountManagement.CreateUserAsync(model);
+            var user = await Services.Management.CreateUserAsync(model);
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
             var uri = Url.Link(RetrieveUserRoute, new {id = user.Id});
@@ -80,31 +80,12 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> DeleteAsync(long id)
         {
-            await Services.AccountManagement.DeleteUserAsync(id);
+            await Services.Management.DeleteUserAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         /// <summary>
-        ///     Get user
-        /// </summary>
-        /// <remarks>Returns a single user, specified by the id parameter.</remarks>
-        /// <param name="id">The id of the desired user</param>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Credentials were not provided</response>
-        /// <response code="403">Access was denied to the resource</response>
-        /// <response code="404">A user was not found with given id</response>
-        /// <response code="500">An unknown error occurred</response>
-        [Route("users/{id:long}", Name = RetrieveUserRoute)]
-        [AcceptVerbs("GET")]
-        [ResponseType(typeof (UserModel))]
-        public async Task<HttpResponseMessage> GetAsync(long id)
-        {
-            var user = await Services.AccountManagement.GetUserAsync(id);
-            return Request.CreateResponse(HttpStatusCode.OK, user);
-        }
-
-        /// <summary>
-        ///     Get users
+        ///     Retrieve all users
         /// </summary>
         /// <remarks>Returns a collection of all users.</remarks>
         /// <response code="400">Bad request</response>
@@ -116,12 +97,31 @@ namespace AngularSkeleton.Web.Application.Controllers
         [ResponseType(typeof (IEnumerable<UserModel>))]
         public async Task<HttpResponseMessage> GetAllAsync()
         {
-            var users = await Services.AccountManagement.GetAllUsersAsync();
+            var users = await Services.Management.GetAllUsersAsync();
 
             var models = users as IList<UserModel> ?? users.ToList();
             var response = Request.CreateResponse(models);
             response.Headers.Add(Constants.ResponseHeaders.TotalCount, models.Count().ToString());
             return response;
+        }
+
+        /// <summary>
+        ///     Retrieve a single user
+        /// </summary>
+        /// <remarks>Returns a single user, specified by the id parameter.</remarks>
+        /// <param name="id">The id of the desired user</param>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Credentials were not provided</response>
+        /// <response code="403">Access was denied to the resource</response>
+        /// <response code="404">A user was not found with given id</response>
+        /// <response code="500">An unknown error occurred</response>
+        [Route("users/{id:long}", Name = RetrieveUserRoute)]
+        [AcceptVerbs("GET")]
+        [ResponseType(typeof (UserModel))]
+        public async Task<HttpResponseMessage> GetSingleAsync(long id)
+        {
+            var user = await Services.Management.GetUserAsync(id);
+            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [ResponseType(typeof (UserModel))]
         public async Task<HttpResponseMessage> MeAsync()
         {
-            var user = await Services.AccountManagement.GetCurrentUserAsync();
+            var user = await Services.Management.GetCurrentUserAsync();
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
@@ -156,7 +156,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> ResetPassword(long id)
         {
-            await Services.AccountManagement.ResetPasswordAsync(id);
+            await Services.Management.ResetPasswordAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -177,7 +177,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> Toggle(long id)
         {
-            await Services.AccountManagement.ToggleUserAsync(id);
+            await Services.Management.ToggleUserAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -199,7 +199,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> UpdateAsync(UserUpdateModel model, long id)
         {
-            await Services.AccountManagement.UpdateUserAsync(model, id);
+            await Services.Management.UpdateUserAsync(model, id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

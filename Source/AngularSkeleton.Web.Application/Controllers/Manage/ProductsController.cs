@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Permissions;
@@ -17,17 +18,16 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AngularSkeleton.Common;
-using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Service;
 using AngularSkeleton.Service.Model.Products;
 using AngularSkeleton.Web.Application.Infrastructure.Attributes;
 
-namespace AngularSkeleton.Web.Application.Controllers
+namespace AngularSkeleton.Web.Application.Controllers.Manage
 {
     /// <summary>
-    ///     Controler for accessing <see cref="ProductModel" /> instances
+    ///     Controller for accessing <see cref="ProductModel" /> instances
     /// </summary>
-    [RoutePrefix(Constants.Api.Version.RestV1RoutePrefix)]
+    [RoutePrefix(Constants.Api.Version.RestV1ManageRoutePrefix)]
     public class ProductsController : ControllerBase
     {
         private const string RetrieveProductRoute = "GetProductById";
@@ -38,43 +38,6 @@ namespace AngularSkeleton.Web.Application.Controllers
         /// <param name="services"></param>
         public ProductsController(IServiceFacade services) : base(services)
         {
-        }
-
-        /// <summary>
-        ///     Get a single product
-        /// </summary>
-        /// <remarks>Returns a single client, specified by the id parameter.</remarks>
-        /// <param name="id">The id of the desired client</param>
-        /// <response code="401">Credentials were not provided</response>
-        /// <response code="403">Access was denied to the resource</response>
-        /// <response code="404">A client was not found with given id</response>
-        /// <response code="500">An unknown error occurred</response>
-        [Route("products/{id:long}", Name = RetrieveProductRoute)]
-        [AcceptVerbs("GET")]
-        [ResponseType(typeof (ProductModel))]
-        public async Task<HttpResponseMessage> GetSingleAsync(long id)
-        {
-            var product = await Services.CatalogManagement.GetProductAsync(id);
-            return Request.CreateResponse(product);
-        }
-
-        /// <summary>
-        ///     Searches products
-        /// </summary>
-        /// <remarks>Returns a collection of products</remarks>
-        /// <response code="401">Credentials were not provided</response>
-        /// <response code="403">Access was denied to the resource</response>
-        /// <response code="404">A client was not found with given id</response>
-        /// <response code="500">An unknown error occurred</response>
-        [Route("products")]
-        [AcceptVerbs("GET")]
-        [ResponseType(typeof (ICollection<ProductModel>))]
-        public async Task<HttpResponseMessage> SearchAsync(string criteria = null, int skip = 0, int take = 10)
-        {
-            var options = new QueryOptions {Skip = skip, Take = take};
-            var products = await Services.CatalogManagement.SearchProductsAsync(options, criteria);
-
-            return Request.CreateResponse(products);
         }
 
         /// <summary>
@@ -93,12 +56,49 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> CreateAsync(ProductAddModel model)
         {
-            var product = await Services.CatalogManagement.CreateProductAsync(model);
-
+            var product = await Services.Management.CreateProductAsync(model);
             var response = Request.CreateResponse(HttpStatusCode.Created);
             var uri = Url.Link(RetrieveProductRoute, new {id = product.Id});
             response.Headers.Location = new Uri(uri);
             return response;
+        }
+
+        /// <summary>
+        ///     Get users
+        /// </summary>
+        /// <remarks>Returns a collection of all users.</remarks>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Credentials were not provided</response>
+        /// <response code="403">Access was denied to the resource</response>
+        /// <response code="500">An unknown error occurred</response>
+        [Route("products")]
+        [AcceptVerbs("GET")]
+        [ResponseType(typeof (IList<ProductModel>))]
+        public async Task<HttpResponseMessage> GetAllAsync()
+        {
+            var products = await Services.Management.GetAllProductsAsync();
+            var models = products as IList<ProductModel> ?? products.ToList();
+            var response = Request.CreateResponse(models);
+            response.Headers.Add(Constants.ResponseHeaders.TotalCount, models.Count().ToString());
+            return response;
+        }
+
+        /// <summary>
+        ///     Get a single product
+        /// </summary>
+        /// <remarks>Returns a single client, specified by the id parameter.</remarks>
+        /// <param name="id">The id of the desired client</param>
+        /// <response code="401">Credentials were not provided</response>
+        /// <response code="403">Access was denied to the resource</response>
+        /// <response code="404">A client was not found with given id</response>
+        /// <response code="500">An unknown error occurred</response>
+        [Route("products/{id:long}", Name = RetrieveProductRoute)]
+        [AcceptVerbs("GET")]
+        [ResponseType(typeof (ProductModel))]
+        public async Task<HttpResponseMessage> GetSingleAsync(long id)
+        {
+            var product = await Services.Management.GetProductAsync(id);
+            return Request.CreateResponse(product);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace AngularSkeleton.Web.Application.Controllers
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> DeleteAsync(long id)
         {
-            await Services.CatalogManagement.DeleteProductAsync(id);
+            await Services.Management.DeleteProductAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

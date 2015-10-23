@@ -28,18 +28,18 @@ namespace AngularSkeleton.Tests.Integration.Api
     /// </summary>
     public class UsersFixture : ApiFixtureBase
     {
-        protected Mock<IAccountService> AccountManagementServiceMock;
+        protected Mock<IManagementService> AccountManagementServiceMock;
 
         public UsersFixture()
         {
-            AccountManagementServiceMock = new Mock<IAccountService>();
-            ServiceFacadeMock.Setup(m => m.AccountManagement).Returns(AccountManagementServiceMock.Object);
+            AccountManagementServiceMock = new Mock<IManagementService>();
+            ServiceFacadeMock.Setup(m => m.Management).Returns(AccountManagementServiceMock.Object);
         }
 
         [Scenario]
         public void CreatingAUser(dynamic newUser)
         {
-            "Given a new task".
+            "Given a new user".
                 f(() =>
                 {
                     newUser = JObject.FromObject(new

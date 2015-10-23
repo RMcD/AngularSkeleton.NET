@@ -9,12 +9,13 @@
 
     <div class="page-header">
         <h1>
-            <i class="fa fa-search page-header-icon"></i>&nbsp;&nbsp;Search results
+            <i class="fa fa-search page-header-icon"></i>&nbsp;&nbsp;Search results 
         </h1>
     </div>
 
     <div class="search-text">
-        <span ng-show="submitted"><strong>{{ totalRecords }}</strong> results found for: <span class="text-primary">{{ criteria }}</span></span>
+        <span ng-if="!submitted"><strong>{{ totalRecords }}</strong> results found</span>
+        <span ng-if="submitted"><strong>{{ totalRecords }}</strong> results found for: <span class="text-primary">{{ criteria }}</span></span>
     </div>
 
     <!-- TABS -->

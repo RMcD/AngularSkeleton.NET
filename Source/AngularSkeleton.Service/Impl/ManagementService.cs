@@ -17,34 +17,42 @@ using AngularSkeleton.Common.Exceptions;
 using AngularSkeleton.DataAccess.Repositories;
 using AngularSkeleton.DataAccess.Util;
 using AngularSkeleton.Domain.Accounts;
+using AngularSkeleton.Domain.Catalog;
 using AngularSkeleton.Domain.Security;
+using AngularSkeleton.Service.Model.Products;
 using AngularSkeleton.Service.Model.Users;
 using AutoMapper;
 using CuttingEdge.Conditions;
 
 namespace AngularSkeleton.Service.Impl
 {
-    public class AccountService : IAccountService
+    public class ManagementService : IManagementService
     {
         private readonly IRepositoryFacade _repositories;
 
-        public AccountService(IRepositoryFacade repositories)
+        public ManagementService(IRepositoryFacade repositories)
         {
             Condition.Requires(repositories, "repositories").IsNotNull();
             _repositories = repositories;
         }
 
-        public async Task<User> AuthorizeAsync(string username, string password)
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
+        public async Task<ProductModel> CreateProductAsync(ProductAddModel model)
         {
-            var user = await _repositories.Users.FindByUsernameAsync(username);
+            if (await _repositories.Products.AnyAsync(o => o.Name == model.Name))
+                throw new BusinessException(string.Format("A product already exists with name: {0}", model.Name));
 
-            if (null == user)
-                return null;
+            var product = new Product(model.Name)
+            {
+                Description = model.Description,
+                QuantityAvailable = model.QuantityAvailable
+            };
 
-            var valid = user.VerifyPassword(password);
-            await _repositories.SaveChangesAsync(); // update audit data
+            _repositories.Products.Insert(product);
 
-            return valid ? user : null;
+            await _repositories.SaveChangesAsync();
+
+            return Mapper.Map<ProductModel>(product);
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
@@ -65,6 +73,18 @@ namespace AngularSkeleton.Service.Impl
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
+        public async Task<int> DeleteProductAsync(long productId)
+        {
+            var product = await _repositories.Products.FindAsync(productId);
+            if (null == product)
+                return 0;
+
+            _repositories.Products.Remove(product);
+
+            return await _repositories.SaveChangesAsync();
+        }
+
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<int> DeleteUserAsync(long userId)
         {
             if (Principal.Current.UserId == userId)
@@ -77,6 +97,12 @@ namespace AngularSkeleton.Service.Impl
             _repositories.Users.Remove(user);
 
             return await _repositories.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
+        {
+            var found = await _repositories.Products.GetAllAsync(QueryOptions.AllItems);
+            return Mapper.Map<IEnumerable<ProductModel>>(found.Items);
         }
 
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
@@ -96,6 +122,16 @@ namespace AngularSkeleton.Service.Impl
                 throw new NotFoundException("The current user was not found");
 
             return Mapper.Map<User, UserModel>(user);
+        }
+
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
+        public async Task<ProductModel> GetProductAsync(long productId)
+        {
+            var product = await _repositories.Products.FindAsync(productId);
+            if (null == product)
+                throw new NotFoundException("No product exists with given id.");
+
+            return Mapper.Map<Product, ProductModel>(product);
         }
 
         public async Task<UserModel> GetUserAsync(long userId)

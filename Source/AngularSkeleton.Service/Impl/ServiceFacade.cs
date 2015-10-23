@@ -8,12 +8,16 @@
 // THE SOFTWARE.
 //=============================================================================
 
+// TODO: Implement Lazy<T> container support (cpt)
+
 namespace AngularSkeleton.Service.Impl
 {
     public class ServiceFacade : IServiceFacade
     {
-        public IAccountService AccountManagement { get; set; }
+        public ICatalogService Catalog { get; set; }
 
-        public ICatalogService CatalogManagement { get; set; }
+        public IManagementService Management { get; set; }
+
+        public ISecurityService Security { get; set; }
     }
 }

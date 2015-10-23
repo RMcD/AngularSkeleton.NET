@@ -242,8 +242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ControllerBase.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\Catalog\CatalogController.cs" />
+    <Compile Include="Controllers\Manage\ProductsController.cs" />
+    <Compile Include="Controllers\Manage\UsersController.cs" />
     <Compile Include="Infrastructure\Attributes\CheckModelForNullAttribute.cs" />
     <Compile Include="Infrastructure\Attributes\ExceptionHandling.cs" />
     <Compile Include="Infrastructure\Attributes\ValidateModelAttribute.cs" />

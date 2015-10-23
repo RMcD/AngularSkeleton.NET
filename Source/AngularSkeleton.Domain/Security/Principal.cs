@@ -35,7 +35,10 @@ namespace AngularSkeleton.Domain.Security
         /// <summary>
         ///     Indicates if the principal is an administrator.
         /// </summary>
-        public bool IsAdministrator => IsInRole(Constants.Permissions.Administrator);
+        public bool IsAdministrator
+        {
+            get { return IsInRole(Constants.Permissions.Administrator); }
+        }
 
         /// <summary>
         ///     The user id
@@ -45,7 +48,7 @@ namespace AngularSkeleton.Domain.Security
             get
             {
                 var claim = FindFirst(o => o.Type == UserIdKey);
-                return (claim != null) ? ConversionUtil.Long(claim.Value) : default(long);
+                return claim != null ? ConversionUtil.Long(claim.Value) : default(long);
             }
         }
 

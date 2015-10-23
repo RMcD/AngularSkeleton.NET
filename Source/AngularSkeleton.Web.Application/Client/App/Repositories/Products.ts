@@ -73,7 +73,7 @@ m.factory('products', ['Restangular', (restangular: restangular.IService) => {
     }
 
     function search(criteria: string, skip: number, take: number) {
-        return <angular.IPromise<IPagedResult<IProduct>>>restangular.all('products').customGET('', {criteria: criteria, skip: skip, take: take})
+        return <angular.IPromise<IPagedResult<IProduct>>>restangular.all('products').customGET('search', {criteria: criteria, skip: skip, take: take})
     }
 
     function toggle(product: IProduct) {
