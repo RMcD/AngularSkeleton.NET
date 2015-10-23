@@ -76,7 +76,7 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
         }
 
         $scope.load = () => {
-            $scope.loading = repositories.products.search($scope.criteria, ($scope.currentPage - 1) * $scope.recordsPerPage, $scope.recordsPerPage).then((result) => {
+            $scope.loading = repositories.catalog.search($scope.criteria, ($scope.currentPage - 1) * $scope.recordsPerPage, $scope.recordsPerPage).then((result) => {
                 $scope.products = result.items
                 $scope.totalRecords = result.totalRecords
             })

@@ -291,6 +291,7 @@
     <TypeScriptCompile Include="Client\App\Modules\Manage\Products\Products.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Users\Users.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Authentication.ts" />
+    <TypeScriptCompile Include="Client\App\Repositories\Catalog.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Products.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Repositories.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Users.ts" />

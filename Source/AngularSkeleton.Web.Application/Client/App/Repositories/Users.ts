@@ -69,27 +69,27 @@ m.factory('users', ['Restangular', (restangular: restangular.IService) => {
     // methods
 
     function create(user: IUser) {
-        return <angular.IPromise<IUser>>restangular.all('users').post(user)
+        return <angular.IPromise<IUser>>restangular.all('manage').all('users').post(user)
     }
 
     function find(id: string) {
-        return <angular.IPromise<IUser>>restangular.one('users', id).get()
+        return <angular.IPromise<IUser>>restangular.all('manage').one('users', id).get()
     }
 
     function getAll() {
-        return restangular.all('users').getList()
+        return restangular.all('manage').all('users').getList()
     }
 
     function getAllActive() {
-        return restangular.all('users').getList().then((data: Array<IUser>) => data.filter(o => o.archived === false))
+        return restangular.all('manage').all('users').getList().then((data: Array<IUser>) => data.filter(o => o.archived === false))
     }
 
     function getAllArchived() {
-        return restangular.all('users').getList().then((data: Array<IUser>) => data.filter(o => o.archived))
+        return restangular.all('manage').all('users').getList().then((data: Array<IUser>) => data.filter(o => o.archived))
     }
 
     function me() {
-        return <angular.IPromise<IUser>>restangular.all('users').customGET('me')
+        return <angular.IPromise<IUser>>restangular.all('manage').all('users').customGET('me')
     }
 
     function remove(user: IUser) {
