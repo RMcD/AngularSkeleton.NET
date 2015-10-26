@@ -21,9 +21,10 @@ var m = angular.module('app', [
     'common.security',
     'app.repositories',
     'app.services',
+    'app.errors',
     'app.layout',
     'app.login',
-    'app.home',
+    'app.dashboard',
     'app.catalog',
     'app.manage',
     'angularMoment',
@@ -63,7 +64,7 @@ m.config([
     ) => {
 
         $locationProvider.html5Mode(false)
-        $urlRouterProvider.otherwise('/catalog')
+        $urlRouterProvider.otherwise('/dashboard')
         laddaProvider.setOption({ style: 'expand-left' })
         restangularProvider.setBaseUrl(settings.apiBaseUri)
         

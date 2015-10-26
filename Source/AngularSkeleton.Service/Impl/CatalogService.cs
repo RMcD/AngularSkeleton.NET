@@ -8,16 +8,14 @@
 // THE SOFTWARE.
 //=============================================================================
 
-using System.Collections.Generic;
+using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
 using AngularSkeleton.Common;
 using AngularSkeleton.Common.Exceptions;
 using AngularSkeleton.DataAccess.Repositories;
 using AngularSkeleton.DataAccess.Util;
-using AngularSkeleton.Domain.Catalog;
-using AngularSkeleton.Service.Model.Products;
-using AutoMapper;
+using AngularSkeleton.Service.Model.Catalog;
 using CuttingEdge.Conditions;
 
 namespace AngularSkeleton.Service.Impl
@@ -32,53 +30,36 @@ namespace AngularSkeleton.Service.Impl
             _repositories = repositories;
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
-        public async Task<ProductModel> CreateProductAsync(ProductAddModel model)
+        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
+        public async Task<CatalogEntryModel> GetEntryByProductIdAsync(long productId)
         {
-            if (await _repositories.Products.AnyAsync(o => o.Name == model.Name))
-                throw new BusinessException(string.Format("A product already exists with name: {0}", model.Name));
+            var product = await _repositories.Products.FindAsync(productId);
+            if (null == product)
+                throw new NotFoundException("The product with id {0} was not found", productId);
 
-            var product = new Product(model.Name)
+            return new CatalogEntryModel
             {
-                Description = model.Description,
-                QuantityAvailable = model.QuantityAvailable
+                ProductId = product.Id,
+                DateAdded = product.CreatedAt,
+                Description = product.Description,
+                Name = product.Name,
+                QuantityAvailable = product.QuantityAvailable
             };
-
-            _repositories.Products.Insert(product);
-
-            await _repositories.SaveChangesAsync();
-
-            return Mapper.Map<ProductModel>(product);
-        }
-
-        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
-        public async Task<int> DeleteProductAsync(long productId)
-        {
-            var product = await _repositories.Products.FindAsync(productId);
-            if (null == product)
-                return 0;
-
-            _repositories.Products.Remove(product);
-
-            return await _repositories.SaveChangesAsync();
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
-        public async Task<ProductModel> GetProductAsync(long productId)
+        public async Task<PagedResult<CatalogEntryModel>> SearchAsync(QueryOptions options, string criteria = null)
         {
-            var product = await _repositories.Products.FindAsync(productId);
-            if (null == product)
-                throw new NotFoundException("No product exists with given id.");
-
-            return Mapper.Map<Product, ProductModel>(product);
-        }
-
-        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.User)]
-        public async Task<PagedResult<ProductModel>> SearchProductsAsync(QueryOptions options, string criteria = null)
-        {
-            var found = await _repositories.Products.Search(options, criteria);
-            var models = Mapper.Map<ICollection<ProductModel>>(found.Items);
-            return new PagedResult<ProductModel>(models, found.TotalRecords);
+            var products = await _repositories.Products.Search(options, criteria);
+            var models = products.Items.Select(product => new CatalogEntryModel
+            {
+                ProductId = product.Id,
+                DateAdded = product.CreatedAt,
+                Description = product.Description,
+                Name = product.Name,
+                QuantityAvailable = product.QuantityAvailable
+            });
+            return new PagedResult<CatalogEntryModel>(models.ToList(), products.TotalRecords);
         }
     }
 }

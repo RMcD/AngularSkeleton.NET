@@ -42,7 +42,7 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
             }
         })
         .state('app.manage.products.edit', {
-            url: '/:userId',
+            url: '/:productId',
             views: {
                 'content@': {
                     templateUrl: `${settings.moduleBaseUri}/manage/products/products.edit.tpl.html`,
@@ -76,7 +76,10 @@ interface IProductsListScope extends ng.IScope {
     activeProducts: Array<IProduct>
     archivedProducts: Array<IProduct>
     calculateUsers(): void
+    currentActivePage: number
+    currentArchivedPage: number
     edit(user: IProduct): void
+    itemsPerPage: number
     products: Array<IProduct>
     tab: string
 }
@@ -86,6 +89,9 @@ m.controller('app.manage.products.list', ['$scope', 'repositories', 'products', 
 
         services.logger.debug('Loaded controller app.manage.users.list')
 
+        $scope.currentActivePage = 1
+        $scope.currentArchivedPage = 1
+        $scope.itemsPerPage = 5
         $scope.products = products
         $scope.tab = 'active'
 
@@ -121,7 +127,7 @@ interface IProductsEditScope extends ng.IScope {
     submitting: boolean
 }
 
-m.controller('app.manage.users.edit', ['$scope', 'product', 'repositories', 'services',
+m.controller('app.manage.products.edit', ['$scope', 'product', 'repositories', 'services',
     ($scope: IProductsEditScope, product: IProduct, repositories: IRepositories, services: IServices) => {
 
         services.logger.debug('Loaded controller app.manage.users.edit')

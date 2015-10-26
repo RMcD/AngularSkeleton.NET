@@ -15,6 +15,7 @@
 
 interface IRepositories {
     authentication: IAuthenticationRepository
+    catalog: ICatalogRepository
     products: IProductsRepository
     users: IUsersRepository
 }
@@ -36,6 +37,7 @@ interface IPagedResult<T> {
 
 var m = angular.module('app.repositories', [
     'app.repositories.authentication',
+    'app.repositories.catalog',
     'app.repositories.products',
     'app.repositories.users'
 ])
@@ -46,16 +48,19 @@ var m = angular.module('app.repositories', [
 
 m.factory('repositories', [
     'authentication',
+    'catalog',
     'products',
     'users',
     (
         authentication: IAuthenticationRepository,
+        catalog: ICatalogRepository,
         products: IProductsRepository,
         users: IUsersRepository
         ) => {
 
         var repositories: IRepositories = {
             authentication: authentication,
+            catalog: catalog,
             products: products,
             users: users
         }

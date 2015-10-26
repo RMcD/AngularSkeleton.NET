@@ -29,8 +29,9 @@ namespace AngularSkeleton.Tests.Integration.Api
     [Trait("Category", TestCategory.Integration)]
     public abstract class ApiFixtureBase : IDisposable
     {
-        protected static string ProductsUrl = string.Format("http://localhost/{0}/products", Constants.Api.Version.RestV1RoutePrefix);
-        protected static string UsersUrl = string.Format("http://localhost/{0}/users", Constants.Api.Version.RestV1RoutePrefix);
+        protected static string CatalogSearchUrl = string.Format("http://localhost/{0}/search", Constants.Api.Version.RestV1CatalogRoutePrefix);
+        protected static string ProductsUrl = string.Format("http://localhost/{0}/products", Constants.Api.Version.RestV1ManageRoutePrefix);
+        protected static string UsersUrl = string.Format("http://localhost/{0}/users", Constants.Api.Version.RestV1ManageRoutePrefix);
 
         private string _token;
 
@@ -55,7 +56,7 @@ namespace AngularSkeleton.Tests.Integration.Api
 
             Client = Server.HttpClient;
             var token = RetrieveBearerToken(Server);
-            Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            Client.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", token));
         }
 
         public void Dispose()
@@ -77,13 +78,13 @@ namespace AngularSkeleton.Tests.Integration.Api
 
             // account service mock
 
-            var accountManagementServiceMock = new Mock<IAccountService>();
-            ServiceFacadeMock.Setup(m => m.AccountManagement).Returns(accountManagementServiceMock.Object);
+            var securityServiceMock = new Mock<ISecurityService>();
+            ServiceFacadeMock.Setup(m => m.Security).Returns(securityServiceMock.Object);
 
             var user = new User(Configuration.DefaultAdminUsername) {IsAdmin = true};
             user.SetPassword(Configuration.DefaultPassword);
 
-            accountManagementServiceMock.Setup(m => m.AuthorizeAsync(Configuration.DefaultAdminUsername, Configuration.DefaultPassword)).ReturnsAsync(user);
+            securityServiceMock.Setup(m => m.AuthorizeAsync(Configuration.DefaultAdminUsername, Configuration.DefaultPassword)).ReturnsAsync(user);
 
             // retrieve token
 
@@ -95,7 +96,7 @@ namespace AngularSkeleton.Tests.Integration.Api
             };
 
             var tokenPostData = new FormUrlEncodedContent(tokenDetails);
-            var tokenResult = server.HttpClient.PostAsync($"/{Constants.Api.Version.RestV1RoutePrefix}/accesstoken", tokenPostData).Result;
+            var tokenResult = server.HttpClient.PostAsync(string.Format("/{0}/accesstoken", Constants.Api.Version.RestV1RoutePrefix), tokenPostData).Result;
             tokenResult.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var body = JObject.Parse(tokenResult.Content.ReadAsStringAsync().Result);

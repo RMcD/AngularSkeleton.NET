@@ -36,6 +36,18 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
                 }
             }
         })
+        .state('app.catalog.entry', {
+            url: '/:productId',
+            views: {
+                'content@': {
+                    templateUrl: `${settings.moduleBaseUri}/catalog/catalog.entry.tpl.html`,
+                    controller: 'app.catalog.entry'
+                }
+            },
+            resolve: {
+                entry: ['repositories', '$stateParams', (repositories: IRepositories, $stateParams: ng.ui.IStateParamsService) => repositories.catalog.entry($stateParams['productId'])]
+            }
+        })
 }])
 
 
@@ -43,18 +55,19 @@ m.config(['$urlRouterProvider', '$stateProvider', 'settings', ($urlRouterProvide
 // Controller app.catalog
 //
 
-interface ICatalogScope  extends angular.IScope {
+interface ICatalogScope extends angular.IScope {
     clear(): void
     criteria: string
     currentPage: number
+    items: Array<ICatalogEntry>
     load(): void
     loading: ng.IPromise<any>
-    products: Array<IProduct>
+    recordsPerPage: number
     search(): void
     skip: number
     submitted: boolean
-    take: number
     totalRecords: number
+    view(item: ICatalogEntry): void
 }
 
 m.controller('app.catalog', ['$scope', 'repositories', 'services',
@@ -64,9 +77,9 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
 
         $scope.criteria = null
         $scope.currentPage = 1
+        $scope.recordsPerPage = 5
         $scope.skip = 0
         $scope.submitted = false
-        $scope.take = 5
         $scope.totalRecords = null
         
         $scope.clear = () => {
@@ -76,8 +89,8 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
         }
 
         $scope.load = () => {
-            $scope.loading = repositories.products.search($scope.criteria, $scope.currentPage * $scope.take, $scope.take).then((result) => {
-                $scope.products = result.items
+            $scope.loading = repositories.catalog.search($scope.criteria, ($scope.currentPage - 1) * $scope.recordsPerPage, $scope.recordsPerPage).then((result) => {
+                $scope.items = result.items
                 $scope.totalRecords = result.totalRecords
             })
         }
@@ -89,8 +102,31 @@ m.controller('app.catalog', ['$scope', 'repositories', 'services',
 
         $scope.$watch('currentPage', () => {
             $scope.load()
-        });
+        })
+
+        $scope.view = item => {
+            services.state.go('app.catalog.entry', { productId: item.productId })
+        }
 
         $scope.load()
+    }
+]) 
+
+
+
+// ****************************************************************************
+// Controller app.catalog.entry
+//
+
+interface ICatalogEntryScope extends ng.IScope {
+    entry: ICatalogEntry
+}
+
+m.controller('app.catalog.entry', ['$scope', 'entry', 'repositories', 'services',
+    ($scope: ICatalogEntryScope, entry: ICatalogEntry, repositories: IRepositories, services: IServices) => {
+
+        services.logger.debug('Loaded controller app.catalog.entry')
+
+        $scope.entry = entry
     }
 ]) 

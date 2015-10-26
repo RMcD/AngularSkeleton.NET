@@ -11,24 +11,18 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace AngularSkeleton.Service.Model.Products
+namespace AngularSkeleton.Service.Model.Catalog
 {
     /// <summary>
-    ///     Models a product
+    ///     Models a catalog item
     /// </summary>
-    public class ProductModel : ModelBase
+    public class CatalogEntryModel : ModelBase
     {
         /// <summary>
         ///     The product id
         /// </summary>
         [DataMember]
-        public long Id { get; set; }
-
-        /// <summary>
-        ///     Indicates if the product is archived
-        /// </summary>
-        [DataMember]
-        public bool Archived { get; set; }
+        public long ProductId { get; set; }
 
         /// <summary>
         ///     The product friendly name

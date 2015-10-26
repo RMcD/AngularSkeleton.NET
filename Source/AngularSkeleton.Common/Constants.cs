@@ -17,6 +17,8 @@ namespace AngularSkeleton.Common
             public class Version
             {
                 public const string RestV1RoutePrefix = "api/rest/v1";
+                public const string RestV1CatalogRoutePrefix = RestV1RoutePrefix + "/catalog";
+                public const string RestV1ManageRoutePrefix = RestV1RoutePrefix + "/manage";
             }
         }
 

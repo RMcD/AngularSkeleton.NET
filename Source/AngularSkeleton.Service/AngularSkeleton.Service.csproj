@@ -75,8 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\MapperConfig.cs" />
-    <Compile Include="IAccountService.cs" />
-    <Compile Include="Impl\AccountService.cs" />
+    <Compile Include="Impl\SecurityService.cs" />
+    <Compile Include="ISecurityService.cs" />
+    <Compile Include="IManagementService.cs" />
+    <Compile Include="Impl\ManagementService.cs" />
     <Compile Include="Impl\CatalogService.cs" />
     <Compile Include="Impl\ServiceFacade.cs" />
     <Compile Include="ICatalogService.cs" />

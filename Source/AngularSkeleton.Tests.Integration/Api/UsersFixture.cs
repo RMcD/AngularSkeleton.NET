@@ -28,18 +28,21 @@ namespace AngularSkeleton.Tests.Integration.Api
     /// </summary>
     public class UsersFixture : ApiFixtureBase
     {
-        protected Mock<IAccountService> AccountManagementServiceMock;
+        protected Mock<IManagementService> ManagementServiceMock;
 
         public UsersFixture()
         {
-            AccountManagementServiceMock = new Mock<IAccountService>();
-            ServiceFacadeMock.Setup(m => m.AccountManagement).Returns(AccountManagementServiceMock.Object);
+            ManagementServiceMock = new Mock<IManagementService>();
+            ServiceFacadeMock.Setup(m => m.Management).Returns(ManagementServiceMock.Object);
         }
 
+        /// <summary>
+        ///     PUT /management/users
+        /// </summary>
         [Scenario]
         public void CreatingAUser(dynamic newUser)
         {
-            "Given a new task".
+            "Given a new user".
                 f(() =>
                 {
                     newUser = JObject.FromObject(new
@@ -56,7 +59,7 @@ namespace AngularSkeleton.Tests.Integration.Api
             "When a POST request is made".
                 f(() =>
                 {
-                    AccountManagementServiceMock.Setup(m => m.CreateUserAsync(It.IsAny<UserAddModel>())).ReturnsAsync(new UserModel {Id = 1});
+                    ManagementServiceMock.Setup(m => m.CreateUserAsync(It.IsAny<UserAddModel>())).ReturnsAsync(new UserModel {Id = 1});
                     Request.Method = HttpMethod.Post;
                     Request.RequestUri = new Uri(UsersUrl);
                     Request.Content = new ObjectContent<dynamic>(newUser, new JsonMediaTypeFormatter());
@@ -67,15 +70,18 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.Created));
 
             "And the user should be added".
-                f(() => AccountManagementServiceMock.Verify(m => m.CreateUserAsync(It.IsAny<UserAddModel>()), Times.Once()));
+                f(() => ManagementServiceMock.Verify(m => m.CreateUserAsync(It.IsAny<UserAddModel>()), Times.Once()));
         }
 
+        /// <summary>
+        ///     DELETE /management/users/{id}
+        /// </summary>
         [Scenario]
         [Example(1)]
         public void DeletingAUser(long userId)
         {
             "Given an existing user".
-                f(() => AccountManagementServiceMock.Setup(m => m.DeleteUserAsync(userId)).ReturnsAsync(1));
+                f(() => ManagementServiceMock.Setup(m => m.DeleteUserAsync(userId)).ReturnsAsync(1));
 
             "When a DELETE request is made".
                 f(() =>
@@ -90,9 +96,12 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
 
             "And the user should be removed".
-                f(() => AccountManagementServiceMock.Verify(m => m.DeleteUserAsync(userId), Times.Once()));
+                f(() => ManagementServiceMock.Verify(m => m.DeleteUserAsync(userId), Times.Once()));
         }
 
+        /// <summary>
+        ///     GET /management/users
+        /// </summary>
         [Scenario]
         public void RetrievingAllUsers(IList<UserModel> users, IList<UserModel> usersResult)
         {
@@ -109,7 +118,7 @@ namespace AngularSkeleton.Tests.Integration.Api
             "When they are retrieved".
                 f(async () =>
                 {
-                    AccountManagementServiceMock.Setup(m => m.GetAllUsersAsync()).ReturnsAsync(users);
+                    ManagementServiceMock.Setup(m => m.GetAllUsersAsync()).ReturnsAsync(users);
                     Request.RequestUri = new Uri(string.Format("{0}", UsersUrl));
                     Response = await Client.SendAsync(Request);
                     usersResult = await Response.Content.ReadAsAsync<IList<UserModel>>();
@@ -122,11 +131,14 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => usersResult.Count().ShouldBe(users.Count()));
         }
 
+        /// <summary>
+        ///     GET /management/users/{id}
+        /// </summary>
         [Scenario]
         public void RetrievingAUser(UserModel user, long userId)
         {
             "Given an existing user".
-                f(() => AccountManagementServiceMock.Setup(m => m.GetUserAsync(userId)).ReturnsAsync(new UserModel {Id = userId}));
+                f(() => ManagementServiceMock.Setup(m => m.GetUserAsync(userId)).ReturnsAsync(new UserModel {Id = userId}));
 
             "When it is retrieved".
                 f(() =>
@@ -140,7 +152,7 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
 
             "And the user should be retrieved".
-                f(() => AccountManagementServiceMock.Verify(m => m.GetUserAsync(userId), Times.Once()));
+                f(() => ManagementServiceMock.Verify(m => m.GetUserAsync(userId), Times.Once()));
 
             "And the user is returned".
                 f(() => user.ShouldNotBe(null));
@@ -149,12 +161,15 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => user.Id.ShouldBe(userId));
         }
 
+        /// <summary>
+        ///     GET /management/users/me
+        /// </summary>
         [Scenario]
         [Example(1)]
         public void RetrievingCurrentUser(int userId, UserModel user)
         {
             "Given an existing user".
-                f(() => AccountManagementServiceMock.Setup(m => m.GetCurrentUserAsync()).ReturnsAsync(new UserModel {Id = userId}));
+                f(() => ManagementServiceMock.Setup(m => m.GetCurrentUserAsync()).ReturnsAsync(new UserModel {Id = userId}));
 
             "When it is retrieved".
                 f(() =>
@@ -168,7 +183,7 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
 
             "And the user should be retrieved".
-                f(() => AccountManagementServiceMock.Verify(m => m.GetCurrentUserAsync(), Times.Once()));
+                f(() => ManagementServiceMock.Verify(m => m.GetCurrentUserAsync(), Times.Once()));
 
             "And the user is returned".
                 f(() => user.ShouldNotBe(null));
@@ -177,12 +192,15 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => user.Id.ShouldBe(userId));
         }
 
+        /// <summary>
+        ///     GET /management/users/{userId}/toggle
+        /// </summary>
         [Scenario]
         [Example(1)]
         public void TogglingAUser(long userId)
         {
             "Given an existing task".
-                f(() => AccountManagementServiceMock.Setup(m => m.ToggleUserAsync(userId)).ReturnsAsync(1));
+                f(() => ManagementServiceMock.Setup(m => m.ToggleUserAsync(userId)).ReturnsAsync(1));
 
             "When a POST request is made".
                 f(() =>
@@ -194,17 +212,20 @@ namespace AngularSkeleton.Tests.Integration.Api
                 });
 
             "Then the task should be deactivated".
-                f(() => AccountManagementServiceMock.Verify(m => m.ToggleUserAsync(userId), Times.Once()));
+                f(() => ManagementServiceMock.Verify(m => m.ToggleUserAsync(userId), Times.Once()));
 
             "And a 200 OK status is returned".
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
         }
 
+        /// <summary>
+        ///     PUT /management/users/{id}
+        /// </summary>
         [Scenario]
         public void UpdatingAUser(UserModel user, long userId)
         {
             "Given an existing user".
-                f(() => AccountManagementServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<UserUpdateModel>(), userId)).ReturnsAsync(1));
+                f(() => ManagementServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<UserUpdateModel>(), userId)).ReturnsAsync(1));
 
             "When a PUT request is made".
                 f(() =>
@@ -228,7 +249,7 @@ namespace AngularSkeleton.Tests.Integration.Api
                 f(() => Response.StatusCode.ShouldBe(HttpStatusCode.OK));
 
             "And the user should be updated".
-                f(() => AccountManagementServiceMock.Verify(m => m.UpdateUserAsync(It.IsAny<UserUpdateModel>(), userId), Times.Once()));
+                f(() => ManagementServiceMock.Verify(m => m.UpdateUserAsync(It.IsAny<UserUpdateModel>(), userId), Times.Once()));
         }
     }
 }

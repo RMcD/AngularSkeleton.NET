@@ -16,13 +16,18 @@ namespace AngularSkeleton.Service
     public interface IServiceFacade
     {
         /// <summary>
-        ///     The account management service
-        /// </summary>
-        IAccountService AccountManagement { get; set; }
-
-        /// <summary>
         ///     The product catalog management service
         /// </summary>
-        ICatalogService CatalogManagement { get; set; }
+        ICatalogService Catalog { get; set; }
+
+        /// <summary>
+        ///     The system management service
+        /// </summary>
+        IManagementService Management { get; set; }
+
+        /// <summary>
+        ///     The security service
+        /// </summary>
+        ISecurityService Security { get; set; }
     }
 }

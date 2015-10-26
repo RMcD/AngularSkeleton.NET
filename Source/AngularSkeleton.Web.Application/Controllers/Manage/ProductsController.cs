@@ -19,88 +19,67 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using AngularSkeleton.Common;
 using AngularSkeleton.Service;
-using AngularSkeleton.Service.Model.Users;
+using AngularSkeleton.Service.Model.Products;
 using AngularSkeleton.Web.Application.Infrastructure.Attributes;
 
-namespace AngularSkeleton.Web.Application.Controllers
+namespace AngularSkeleton.Web.Application.Controllers.Manage
 {
     /// <summary>
-    ///     Controller for accessing users
+    ///     Controller for accessing <see cref="ProductModel" /> instances
     /// </summary>
-    [RoutePrefix(Constants.Api.Version.RestV1RoutePrefix)]
-    public class UsersController : ControllerBase
+    [RoutePrefix(Constants.Api.Version.RestV1ManageRoutePrefix)]
+    public class ProductsController : ControllerBase
     {
-        private const string RetrieveUserRoute = "GetUserById";
+        private const string RetrieveProductRoute = "GetProductById";
 
         /// <summary>
-        ///     Creates a new users controller
+        ///     Creates a new products controller instance
         /// </summary>
         /// <param name="services"></param>
-        public UsersController(IServiceFacade services) : base(services)
+        public ProductsController(IServiceFacade services) : base(services)
         {
         }
 
         /// <summary>
-        ///     Create user
+        ///     Create a product
         /// </summary>
-        /// <remarks> Creates a new user.</remarks>
-        /// <param name="model">The user data</param>
+        /// <remarks>Creates a new product</remarks>
+        /// <param name="model">The product data</param>
         /// <response code="400">Bad request</response>
         /// <response code="401">Credentials were not provided</response>
         /// <response code="403">Access was denied to the resource</response>
         /// <response code="500">An unknown error occurred</response>
-        [Route("users")]
+        [Route("products")]
         [AcceptVerbs("POST")]
         [CheckModelForNull]
         [ValidateModel]
-        [ResponseType(typeof (UserModel))]
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
-        public async Task<HttpResponseMessage> CreateAsync(UserAddModel model)
+        public async Task<HttpResponseMessage> CreateAsync(ProductAddModel model)
         {
-            var user = await Services.AccountManagement.CreateUserAsync(model);
-
+            var product = await Services.Management.CreateProductAsync(model);
             var response = Request.CreateResponse(HttpStatusCode.Created);
-            var uri = Url.Link(RetrieveUserRoute, new {id = user.Id});
+            var uri = Url.Link(RetrieveProductRoute, new {id = product.Id});
             response.Headers.Location = new Uri(uri);
             return response;
         }
 
         /// <summary>
-        ///     Delete user
+        ///     Delete a product
         /// </summary>
-        /// <remarks>Deletes a single user, specified by the id parameter.</remarks>
-        /// <param name="id">The id</param>
+        /// <remarks>Deletes a single product, specified by the id parameter.</remarks>
+        /// <param name="id">The ID of the desired product</param>
         /// <response code="400">Bad request</response>
         /// <response code="401">Credentials were not provided</response>
         /// <response code="403">Access was denied to the resource</response>
-        /// <response code="404">A user was not found with given id</response>
+        /// <response code="404">A product was not found with given id</response>
         /// <response code="500">An unknown error occurred</response>
-        [Route("users/{id:long}")]
+        [Route("products/{id:long}")]
         [AcceptVerbs("DELETE")]
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> DeleteAsync(long id)
         {
-            await Services.AccountManagement.DeleteUserAsync(id);
+            await Services.Management.DeleteProductAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        /// <summary>
-        ///     Get user
-        /// </summary>
-        /// <remarks>Returns a single user, specified by the id parameter.</remarks>
-        /// <param name="id">The id of the desired user</param>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Credentials were not provided</response>
-        /// <response code="403">Access was denied to the resource</response>
-        /// <response code="404">A user was not found with given id</response>
-        /// <response code="500">An unknown error occurred</response>
-        [Route("users/{id:long}", Name = RetrieveUserRoute)]
-        [AcceptVerbs("GET")]
-        [ResponseType(typeof (UserModel))]
-        public async Task<HttpResponseMessage> GetAsync(long id)
-        {
-            var user = await Services.AccountManagement.GetUserAsync(id);
-            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         /// <summary>
@@ -111,78 +90,59 @@ namespace AngularSkeleton.Web.Application.Controllers
         /// <response code="401">Credentials were not provided</response>
         /// <response code="403">Access was denied to the resource</response>
         /// <response code="500">An unknown error occurred</response>
-        [Route("users")]
+        [Route("products")]
         [AcceptVerbs("GET")]
-        [ResponseType(typeof (IEnumerable<UserModel>))]
+        [ResponseType(typeof (IList<ProductModel>))]
         public async Task<HttpResponseMessage> GetAllAsync()
         {
-            var users = await Services.AccountManagement.GetAllUsersAsync();
-
-            var models = users as IList<UserModel> ?? users.ToList();
+            var products = await Services.Management.GetAllProductsAsync();
+            var models = products as IList<ProductModel> ?? products.ToList();
             var response = Request.CreateResponse(models);
             response.Headers.Add(Constants.ResponseHeaders.TotalCount, models.Count().ToString());
             return response;
         }
 
         /// <summary>
-        ///     Me
+        ///     Get a single product
         /// </summary>
-        /// <remarks>Returns the currently logged in user.</remarks>
-        /// <response code="400">Bad request</response>
+        /// <remarks>Returns a single client, specified by the id parameter.</remarks>
+        /// <param name="id">The id of the desired client</param>
         /// <response code="401">Credentials were not provided</response>
         /// <response code="403">Access was denied to the resource</response>
+        /// <response code="404">A client was not found with given id</response>
         /// <response code="500">An unknown error occurred</response>
-        [Route("users/me")]
+        [Route("products/{id:long}", Name = RetrieveProductRoute)]
         [AcceptVerbs("GET")]
-        [ResponseType(typeof (UserModel))]
-        public async Task<HttpResponseMessage> MeAsync()
+        [ResponseType(typeof (ProductModel))]
+        public async Task<HttpResponseMessage> GetSingleAsync(long id)
         {
-            var user = await Services.AccountManagement.GetCurrentUserAsync();
-            return Request.CreateResponse(HttpStatusCode.OK, user);
+            var product = await Services.Management.GetProductAsync(id);
+            return Request.CreateResponse(product);
         }
 
         /// <summary>
-        ///     Reset password
-        /// </summary>
-        /// <remarks>Sends an email with instructions to reset the password to the user.</remarks>
-        /// <param name="id">The id</param>
-        /// <response code="400">Bad request</response>
-        /// <response code="401">Credentials were not provided</response>
-        /// <response code="403">Access was denied to the resource</response>
-        /// <response code="404">A user was not found with given id</response>
-        /// <response code="500">An unknown error occurred</response>
-        [Route("users/{id:long}/reset-password")]
-        [AcceptVerbs("DELETE")]
-        [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
-        public async Task<HttpResponseMessage> ResetPassword(long id)
-        {
-            await Services.AccountManagement.ResetPasswordAsync(id);
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        /// <summary>
-        ///     Toggle user
+        ///     Toggle product
         /// </summary>
         /// <remarks>
-        ///     This will archive an active user or activate an archived user.
+        ///     This will archive an active product or activate an archived product.
         /// </remarks>
-        /// <param name="id">The id of the desired user</param>
+        /// <param name="id">The id of the desired product</param>
         /// <response code="400">Bad request</response>
         /// <response code="401">Credentials were not provided</response>
         /// <response code="403">Access was denied to the resource</response>
         /// <response code="404">A user was not found with given id</response>
         /// <response code="500">An unknown error occurred</response>
-        [Route("users/{id:long}/toggle")]
+        [Route("products/{id:long}/toggle")]
         [AcceptVerbs("POST")]
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
         public async Task<HttpResponseMessage> Toggle(long id)
         {
-            await Services.AccountManagement.ToggleUserAsync(id);
+            await Services.Management.ToggleProductAsync(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         /// <summary>
-        ///     Update user
+        ///     Update product
         /// </summary>
         /// <remarks>Updates a single user, specified by the id parameter.</remarks>
         /// <param name="model">The user data</param>
@@ -192,14 +152,14 @@ namespace AngularSkeleton.Web.Application.Controllers
         /// <response code="403">Access was denied to the resource</response>
         /// <response code="404">A user was not found with given id</response>
         /// <response code="500">An unknown error occurred</response>
-        [Route("users/{id:long}")]
+        [Route("products/{id:long}")]
         [AcceptVerbs("PUT")]
         [CheckModelForNull]
         [ValidateModel]
         [PrincipalPermission(SecurityAction.Demand, Role = Constants.Permissions.Administrator)]
-        public async Task<HttpResponseMessage> UpdateAsync(UserUpdateModel model, long id)
+        public async Task<HttpResponseMessage> UpdateAsync(ProductUpdateModel model, long id)
         {
-            await Services.AccountManagement.UpdateUserAsync(model, id);
+            await Services.Management.UpdateProductAsync(model, id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

@@ -21,6 +21,10 @@ namespace AngularSkeleton.DataAccess.Util
     [DataContract]
     public class PagedResult<T>
     {
+        internal PagedResult()
+        {
+        }
+
         public PagedResult(T item)
         {
             Items = new List<T> {item};

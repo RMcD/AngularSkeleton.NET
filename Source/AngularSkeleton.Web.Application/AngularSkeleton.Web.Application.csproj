@@ -168,8 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\App\Modules\Catalog\Catalog.tpl.html" />
-    <Content Include="Client\App\Modules\Home\Home.tpl.html" />
-    <Content Include="Client\App\Modules\Layout\Content.tpl.html" />
+    <Content Include="Client\App\Modules\Catalog\Catalog.entry.tpl.html" />
+    <Content Include="Client\App\Modules\Dashboard\Dashboard.tpl.html" />
+    <Content Include="Client\App\Modules\Errors\AccessDenied.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Footer.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Navbar.tpl.html" />
     <Content Include="Client\App\Modules\Layout\Sidebar.tpl.html" />
@@ -242,8 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ControllerBase.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\Catalog\CatalogController.cs" />
+    <Compile Include="Controllers\Manage\ProductsController.cs" />
+    <Compile Include="Controllers\Manage\UsersController.cs" />
     <Compile Include="Infrastructure\Attributes\CheckModelForNullAttribute.cs" />
     <Compile Include="Infrastructure\Attributes\ExceptionHandling.cs" />
     <Compile Include="Infrastructure\Attributes\ValidateModelAttribute.cs" />
@@ -283,13 +285,15 @@
     <TypeScriptCompile Include="Client\App\App.ts" />
     <TypeScriptCompile Include="Client\App\Constants.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Catalog\Catalog.ts" />
-    <TypeScriptCompile Include="Client\App\Modules\Home\Home.ts" />
+    <TypeScriptCompile Include="Client\App\Modules\Dashboard\Dashboard.ts" />
+    <TypeScriptCompile Include="Client\App\Modules\Errors\Errors.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Layout\Layout.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Login\Login.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Manage.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Products\Products.ts" />
     <TypeScriptCompile Include="Client\App\Modules\Manage\Users\Users.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Authentication.ts" />
+    <TypeScriptCompile Include="Client\App\Repositories\Catalog.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Products.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Repositories.ts" />
     <TypeScriptCompile Include="Client\App\Repositories\Users.ts" />

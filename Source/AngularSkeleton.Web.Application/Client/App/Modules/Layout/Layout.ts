@@ -17,15 +17,6 @@ var m = angular.module('app.layout', [])
 
 
 // ****************************************************************************
-// Controller layout.content 
-//
-
-m.controller('app.layout.content', ['$scope', '$state', 'security', 'services', ($scope: any, $state: ng.ui.IState, security: ISecurity, services: IServices) => {
-    services.logger.debug('Loading app.layout.content controller')
-}])
-
-
-// ****************************************************************************
 // Controller layout.navbar
 //
 

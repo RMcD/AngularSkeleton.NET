@@ -149,6 +149,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Api\ApiFixtureBase.cs" />
+    <Compile Include="Api\CatalogFixture.cs" />
     <Compile Include="Api\ProductsFixture.cs" />
     <Compile Include="Api\UsersFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
