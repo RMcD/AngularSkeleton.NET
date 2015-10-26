@@ -47,7 +47,9 @@ namespace AngularSkeleton.Web.Application.Infrastructure.Security
             }
         }
 
+#pragma warning disable 1998
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+#pragma warning restore 1998
         {
             context.Validated(); // using resource credentials
         }

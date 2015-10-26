@@ -67,6 +67,7 @@ namespace AngularSkeleton.Web.Application.Infrastructure.Config
         /// <summary>
         ///     Registers the autofac configuration.
         /// </summary>
+        /// <param name="app"></param>
         /// <param name="configuration"></param>
         public static void RegisterAutofacConfig(IAppBuilder app, HttpConfiguration configuration)
         {
